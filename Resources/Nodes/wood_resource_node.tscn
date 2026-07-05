@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://c0hb15tk506b8" path="res://Resources/Nodes/base_resource_node.tscn" id="1_r3tbw"]
 [ext_resource type="Material" uid="uid://777ggk7awtxr" path="res://Art/Materials/ResourceMats/test_wood_mat.tres" id="2_1itf3"]
+[ext_resource type="PackedScene" uid="uid://b4nseybi7knwr" path="res://Resources/Chunks/wood_chunk.tscn" id="2_ot6i0"]
 
 [node name="WoodResourceNode" unique_id=830053814 instance=ExtResource("1_r3tbw")]
 node_resource = 2
+chunk_to_spawn = ExtResource("2_ot6i0")
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=1133214649]
 surface_material_override/0 = ExtResource("2_1itf3")

@@ -18,7 +18,7 @@ height = 0.25
 radial_segments = 16
 rings = 2
 
-[node name="ResourceChunk" type="RigidBody3D" unique_id=1059760451]
+[node name="ResourceChunk" type="RigidBody3D" unique_id=1059760451 groups=["ResourceChunk"]]
 physics_material_override = SubResource("PhysicsMaterial_7t8kp")
 linear_damp = 0.5
 angular_damp = 0.5

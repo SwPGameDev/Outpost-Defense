@@ -2,8 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://c0hb15tk506b8" path="res://Resources/Nodes/base_resource_node.tscn" id="1_ab1wc"]
 [ext_resource type="Material" uid="uid://ddtvlvklnfd6x" path="res://Art/Materials/ResourceMats/test_food_mat.tres" id="2_jg54a"]
+[ext_resource type="PackedScene" uid="uid://4kw71ju57gmk" path="res://Resources/Chunks/food_chunk.tscn" id="2_noa5o"]
 
 [node name="FoodResourceNode" unique_id=830053814 instance=ExtResource("1_ab1wc")]
+chunk_to_spawn = ExtResource("2_noa5o")
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=1133214649]
 surface_material_override/0 = ExtResource("2_jg54a")

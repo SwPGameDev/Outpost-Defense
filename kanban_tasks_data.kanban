@@ -52,7 +52,9 @@
 				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
 				"6c3ea0df-10b8-4fdf-b487-b75fc2221020",
 				"e3515536-7a7e-44eb-89da-aa5a2c3f7f1f",
-				"8a842ceb-9e74-4ac4-b66e-37d17d2df138"
+				"8a842ceb-9e74-4ac4-b66e-37d17d2df138",
+				"ad51a03f-5fce-4938-9703-cf4f826ed4b8",
+				"5e16b3b0-c8be-4d6a-85b2-982ef1d56cb6"
 			]
 		},
 		{
@@ -228,6 +230,20 @@
 			"uuid": "8a842ceb-9e74-4ac4-b66e-37d17d2df138",
 			"title": "Attach resource request to building",
 			"description": "Can only have one resource request at a time?",
+			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
+			"steps": []
+		},
+		{
+			"uuid": "ad51a03f-5fce-4938-9703-cf4f826ed4b8",
+			"title": "Arrow Tower",
+			"description": "",
+			"category": "1a042eeb-8d45-4a87-a053-0bd29d9412bc",
+			"steps": []
+		},
+		{
+			"uuid": "5e16b3b0-c8be-4d6a-85b2-982ef1d56cb6",
+			"title": "Objects are tracked in groups",
+			"description": "",
 			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
 			"steps": []
 		}

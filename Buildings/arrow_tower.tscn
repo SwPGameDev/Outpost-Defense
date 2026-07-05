@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://oc864ldbog7c"]
+
+[ext_resource type="Script" uid="uid://ctdyoxwy0450r" path="res://Buildings/arrow_tower_behavior.gd" id="1_lw1lr"]
+[ext_resource type="PackedScene" uid="uid://k8ihp5wnkyu" path="res://Buildings/projectile.tscn" id="2_fmtrp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hjh8e"]
+albedo_color = Color(0.44815773, 0.28535783, 0.10042969, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2ov11"]
+material = SubResource("StandardMaterial3D_hjh8e")
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6kjqo"]
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lw1lr"]
+material = SubResource("StandardMaterial3D_hjh8e")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fmtrp"]
+material = SubResource("StandardMaterial3D_hjh8e")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+
+[node name="arrow_tower" type="StaticBody3D" unique_id=1095212126 node_paths=PackedStringArray("turret", "projectile_spawn") groups=["Tower"]]
+script = ExtResource("1_lw1lr")
+turret = NodePath("Turret")
+projectile_scene = ExtResource("2_fmtrp")
+projectile_spawn = NodePath("Turret/MeshInstance3D/MeshInstance3D/Muzzle")
+metadata/_custom_type_script = "uid://uq2gqqdmvykw"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=184758886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_2ov11")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1904879913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_6kjqo")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=669712482]
+radius = 0.5
+
+[node name="Turret" type="Node3D" parent="." unique_id=463943891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Turret" unique_id=2045095454]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("CylinderMesh_lw1lr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Turret/MeshInstance3D" unique_id=1696068417]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.04, 0.4)
+mesh = SubResource("CylinderMesh_fmtrp")
+
+[node name="Muzzle" type="Node3D" parent="Turret/MeshInstance3D/MeshInstance3D" unique_id=1554585118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24999997, 0)

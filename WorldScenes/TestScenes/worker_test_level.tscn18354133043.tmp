@@ -385,10 +385,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -4.5)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DebugTarget" unique_id=1050471813]
 mesh = SubResource("SphereMesh_bjxgj")
 
-[node name="arrow_tower" parent="." unique_id=1095212126 node_paths=PackedStringArray("debug_target") instance=ExtResource("23_vj1u5")]
+[node name="arrow_tower" parent="." unique_id=1095212126 instance=ExtResource("23_vj1u5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 17)
-debug = true
-debug_target = NodePath("../Workers/Worker1")
 
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/MenuButton" to="TestUI/Control/ButtonRoot/MenuButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" to="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" method="_on_pressed"]

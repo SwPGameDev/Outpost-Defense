@@ -36,9 +36,6 @@ var cam : Camera3D
 
 var check_pos : Vector3
 
-# PHYSICS
-var physics_space : PhysicsDirectSpaceState3D # Needs to be updated when things are moved
-
 func _ready() -> void:
 	cam = get_viewport().get_camera_3d()
 
@@ -74,8 +71,8 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("right_click") : # Need to handle inputs differently???
-		var ray_results : Dictionary = MouseViewPortRayCast()
+	if Input.is_action_just_pressed("right_click") :
+		var ray_results : Dictionary = Utility.MouseViewPortRayCast()
 		var sphere_results : Array[Dictionary]
 		
 		
@@ -85,7 +82,7 @@ func _physics_process(_delta: float) -> void:
 			
 			selected_thing = CheckResults(ray_results)
 			if selected_thing == null :
-				sphere_results = TrySphereCast(check_pos, check_radius)
+				sphere_results = Utility.TrySphereCast(check_pos, check_radius, 50)
 				if sphere_results.size() > 0 :
 					selected_thing = GetClosestColObj(sphere_results, check_pos)
 				
@@ -196,40 +193,6 @@ func UpdateResourceUI(label : Label, selected : Variant) :
 		work_needed_string = "\n" + "Chunk Work: " + String.num(selected.current_work_done, 2) + " / " + String.num(selected.work_needed_per_chunk, 2)
 		
 		label.text = name_string + resource_type_string + work_needed_string
-
-
-func MouseViewPortRayCast() -> Dictionary :
-	physics_space = get_world_3d().direct_space_state # access from root node
-	var mousepos = get_viewport().get_mouse_position()
-	var origin = cam.project_ray_origin(mousepos)
-	var end = origin + cam.project_ray_normal(mousepos) * ray_length
-	var query = PhysicsRayQueryParameters3D.create(origin, end)
-	query.collide_with_areas = false
-	
-	var result = physics_space.intersect_ray(query)
-	
-	return result
-
-### Use this new query to find a nearby worker
-func TrySphereCast(pos : Vector3, radius : float) -> Array[Dictionary] :
-	physics_space = get_world_3d().direct_space_state
-	
-	var shape_rid = PhysicsServer3D.sphere_shape_create()
-	PhysicsServer3D.shape_set_data(shape_rid, radius)
-	
-	
-	var params = PhysicsShapeQueryParameters3D.new()
-	params.shape_rid = shape_rid
-	params.transform.origin = pos
-	
-	# Execute physics queries here...
-	var result = physics_space.intersect_shape(params)
-	
-	return result
-	
-	# Release the shape when done with physics queries.
-	#PhysicsServer3D.free_rid(shape_rid)
-	# Do we need to release this shape ever?
 
 func MoveSelectUI(opt_button : OptionButton, sel_ui : Control, worker : Worker, offset : Vector2) :
 	opt_button.selected = worker.current_job

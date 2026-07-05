@@ -21,7 +21,7 @@ albedo_color = Color(0.018448738, 0.058960944, 0.06970161, 1)
 material = SubResource("StandardMaterial3D_hqb18")
 size = Vector2(2, 1.25)
 
-[node name="ResourceNode" type="StaticBody3D" unique_id=830053814 node_paths=PackedStringArray("debug_label")]
+[node name="ResourceNode" type="StaticBody3D" unique_id=830053814 node_paths=PackedStringArray("debug_label") groups=["ResourceNodes"]]
 physics_material_override = SubResource("PhysicsMaterial_7t8kp")
 script = ExtResource("1_k4hv5")
 debug_label = NodePath("Label3D")

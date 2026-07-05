@@ -7,19 +7,15 @@ class_name ResourceNode
 @export_group("")
 
 @export var node_resource : ResourceManager.ResourceType
-var chunk_to_spawn : PackedScene
+@export var chunk_to_spawn : PackedScene
 @export var spawn_offset : Vector3 = Vector3(0, 2, 0)
 
 @export var chunks_left : int
+@export var workers_assigned : int = 0
 
 @export var work_needed_per_chunk : float = 3
 var current_work_done : float = 0
 
-
-
-func _ready() -> void:
-	ResourceManager.Track_Resource_Node(self, node_resource)
-	
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("jump") :
@@ -47,7 +43,8 @@ func SpawnChunk() :
 	#chunks_left -= 1
 
 func DepleteNode() :
-	ResourceManager.Untrack_Resource_Node(self, node_resource)
+	# need to decide if nodes are finite
+	pass
 
 func TakeWork(work_amount : float) :
 	current_work_done += work_amount

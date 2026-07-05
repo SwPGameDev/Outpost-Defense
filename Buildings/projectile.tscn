@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://k8ihp5wnkyu"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2ov11"]
+radius = 0.1
+height = 0.5
+radial_segments = 16
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqpnd"]
+radius = 0.1
+height = 0.5
+
+[node name="Projectile" type="RigidBody3D" unique_id=116030321]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=551805732]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_2ov11")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1728935948]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_yqpnd")

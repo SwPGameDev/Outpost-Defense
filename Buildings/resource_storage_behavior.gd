@@ -3,9 +3,6 @@ class_name ResourceStorage
 
 var held_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceType]
 
-func _ready() -> void:
-	ResourceManager.Track_Resource_Storage(self)
-
 func StoreChunk(chunk : ResourceChunk, chunk_type : ResourceManager.ResourceType) :
 	held_chunks[chunk] = chunk_type
 	chunk.held = false

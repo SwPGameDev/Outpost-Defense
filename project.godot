@@ -35,6 +35,15 @@ window/size/viewport_height=900
 
 enabled=PackedStringArray("res://addons/gg_print/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
+[global_group]
+
+Worker=""
+ResourceNodes=""
+ResourceChunk=""
+ResourceStorage=""
+TownHall=""
+Tower=""
+
 [input]
 
 move_forward={

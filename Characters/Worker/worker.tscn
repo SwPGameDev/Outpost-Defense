@@ -13,7 +13,7 @@ albedo_color = Color(4.813075e-08, 0.427371, 0.30050135, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u1olj"]
 
-[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent", "hold_pos")]
+[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent", "hold_pos") groups=["Worker"]]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_8w0bo")

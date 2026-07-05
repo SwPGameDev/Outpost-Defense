@@ -9,10 +9,3 @@ var stored : bool = false
 var targeted : bool = false
 var part_of_a_request : bool = false
 var for_delivery : bool = false
-
-func _ready() -> void:
-	ResourceManager.Track_Resource_Chunk(self, chunk_resource)
-
-# Chunks will physically exist... do we want to track and untrack everytime it's stored and taken
-#func DepositChunk() :
-	#ResourceManager.Untrack_Resource_Chunk(self, chunk_resource)

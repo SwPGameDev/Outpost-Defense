@@ -26,7 +26,6 @@ var request_active : bool = false
 var current_storage : int = 0
 
 func _ready() -> void:
-	ResourceManager.Track_TownHall(self)
 	TryRequestWorkerResources()
 
 func _process(delta: float) -> void:
