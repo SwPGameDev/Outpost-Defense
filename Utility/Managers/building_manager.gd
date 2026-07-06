@@ -8,14 +8,20 @@ var in_build_mode : bool = false
 var mouse_pos : Vector3
 var build_pos : Vector3
 
+var building_indicator_1x1 : PackedScene = preload("res://Buildings/TestBuildingIndicators/1x1Indicator.tscn")
+var build_indicator : Node3D = null
+
 var town_hall_scene : PackedScene = preload("res://Buildings/town_hall.tscn")
 var resource_storage_scene : PackedScene = preload("res://Buildings/resource_storage.tscn")
+var house_scene : PackedScene = preload("res://Buildings/house.tscn")
+var arrow_tower_scene : PackedScene = preload("res://Buildings/arrow_tower.tscn")
 
 var selector_index : int = 0
 var building_scenes : Array[PackedScene] = [
 	town_hall_scene,
 	resource_storage_scene,
-	
+	house_scene,
+	arrow_tower_scene
 	]
 
 var selected_building : PackedScene
@@ -35,6 +41,11 @@ func _ready() -> void:
 	
 	selector_index = 0
 	selected_building = building_scenes[selector_index]
+	
+	var test_indicator = building_indicator_1x1.instantiate()
+	add_child(test_indicator)
+	build_indicator = test_indicator
+	build_indicator.visible = false
 
 func _process(_delta: float) -> void:
 	if debug_indicators :
@@ -44,6 +55,7 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("build_mode") :
 		in_build_mode = !in_build_mode
+		build_indicator.visible = !build_indicator.visible
 	
 	
 	if in_build_mode :
@@ -71,6 +83,7 @@ func _process(_delta: float) -> void:
 				RoundToNearestGrid(mouse_pos.z, grid_size)
 			)
 			
+			build_indicator.global_position = build_pos
 		
 		if Input.is_action_just_pressed("left_click") :
 			TryPlaceFoundation(selected_building, build_pos)

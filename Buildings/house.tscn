@@ -7,18 +7,34 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_cojo5"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yqpnd"]
+size = Vector3(1, 0.25, 1)
+
 [node name="House" type="StaticBody3D" unique_id=504254213]
 script = ExtResource("1_2kccs")
 metadata/_custom_type_script = "uid://uq2gqqdmvykw"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1530848197]
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=518249991]
+radius = 0.5
+
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=1530848197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_okdhw")
+disabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1463377457]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1463377457]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 material_override = ExtResource("2_diyid")
 mesh = SubResource("BoxMesh_cojo5")
 
-[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=518249991]
-radius = 0.5
+[node name="FoundationCol" type="CollisionShape3D" parent="." unique_id=348814458]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+shape = SubResource("BoxShape3D_2ov11")
+
+[node name="FoundationMesh" type="MeshInstance3D" parent="." unique_id=657910898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("BoxMesh_yqpnd")
