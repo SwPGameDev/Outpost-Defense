@@ -21,7 +21,7 @@ albedo_color = Color(0.018448738, 0.058960944, 0.06970161, 1)
 material = SubResource("StandardMaterial3D_hqb18")
 size = Vector2(5.5, 1.5)
 
-[node name="TownHall" type="StaticBody3D" unique_id=1589096867 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point")]
+[node name="TownHall" type="StaticBody3D" unique_id=1589096867 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point") groups=["TownHall"]]
 script = ExtResource("1_wtasv")
 debug_label_parent = NodePath("LabelParent")
 debug_training_progress_label = NodePath("LabelParent/LabelBackground/ProgLabel")

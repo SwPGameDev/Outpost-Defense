@@ -7,6 +7,26 @@ var move_state : MovementState
 enum ActionState {None, Holding, Working} #, Fighting}
 var action_state : ActionState
 
+enum JobType {Idle, Gather, Logistics, Repair}
+	# Do we need to check for an existing resource request?
+	# Lets do it here for now, but not every frame
+	#if RequestManager.existing_requests.size() > 0 :
+		# 1. Figure out what resources are needed
+		# 2. Check to see if we have a chunk stored in any of our buildings
+		# 3. Look in increasingly larger ranges for an untargeted chunk we need
+		# 4 FAIL. If we can't find keep looping? Complain that we don't have the resource
+			# 4.5 FAIL??? Move on to next request??
+		# 4 SUCCESS. Send worker to grab and deliver to building/construction site
+		# 5. Update what we have to pending
+		# 6. Move on to next needed in current request
+		# 7. Update delivered when delivered
+		# 8. When everything is delivered mark as fulfilled
+		# 9. Build workers should start building
+	# Wow this is complicated
+	
+	# Maybe just have worker with logi job proiritize delivering to requests
+
+
 # TODO
 # - Seperate worker behaivor into:
 # - Data holder stuff used across all: State, Target, Stats
@@ -15,8 +35,7 @@ var action_state : ActionState
 # -- Working action
 # -- Combat
 
-var worker_manager : WorkerManager
- 
+
 @export_group("Debug")
 @export var debug_enabled : bool
 @export var debug_target : Node3D
@@ -39,7 +58,7 @@ var height_checked : bool = false
 var height_distance : float = 0.1
 var worker_height : float
 
-var current_job : WorkerManager.JobType = WorkerManager.JobType.Idle
+var current_job : JobType = JobType.Idle
 var resource_priority : ResourceManager.ResourceType
 
 @export_group("Chunk")
@@ -67,8 +86,8 @@ var can_do_work : bool = false
 
 func _ready() -> void:
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
-	worker_manager = WorkerManager
-	worker_manager.NewWorker(self)
+	
+	current_job = JobType.Idle
 
 ### TODO self righting forces
 # NOTE to self disable axis lock
@@ -87,14 +106,7 @@ func _process(delta: float) -> void:
 	if find_new_target :
 		find_new_target = false
 		match current_job :
-			WorkerManager.JobType.Idle :
-				print("IDLE TARGETING")
-				#set target to command center?
-				
-				# TEMP rn just wander a lil
-				#if idle_waiting :
-				
-				
+			JobType.Idle :
 				idle_wait_cooldown = randf_range(idle_wait_min, idle_wait_max)
 				idle_wait_timer = 0
 				wander_distance = randf_range(idle_wander_distance_min, idle_wander_distance_max)
@@ -106,16 +118,15 @@ func _process(delta: float) -> void:
 				var random_pos : Vector3 = global_position + (rand_dir * wander_distance)
 				SetDestination(GetDestFromTarget(random_pos, 0))
 			
-			WorkerManager.JobType.Gather :
-				print("GATHER TARGETING")
+			JobType.Gather :
 				# ask what resources are needed
 				#resource_priority = ResourceManager.GetResourcePriority() ## Array? start top prio to last bottom prio?
 				# TEMP ### At some point need to prioritize resource type instead of random
 				target = ResourceManager.GetClosestResourceNode(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)])
 			
-			WorkerManager.JobType.Logistics :
-				print("LOGISTICS TARGETING")
-				# TEMP ### At some point need to prioritize resource type instead of random
+			JobType.Logistics :
+				### At some point need to prioritize resource type instead of random
+				### Not working atm... so back to random..
 				var resource_to_find : ResourceManager.ResourceType
 				var outstanding_requests : bool = RequestManager.existing_requests.size() > 0
 				
@@ -130,7 +141,7 @@ func _process(delta: float) -> void:
 					if outstanding_requests :
 						target = ResourceManager.GetClosestResourceChunk(
 							global_position,
-							resource_to_find,
+							ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)], #resource_to_find
 							true,
 							false)
 						if target == null : ## Can't find chunks of type, need to grab something else
@@ -143,7 +154,6 @@ func _process(delta: float) -> void:
 							true)
 					
 					if target != null :
-						print("TARGET TARGETED? : " + str(target) + " | " + str(target.targeted))
 						target.targeted = true
 						find_new_target = false
 					else :
@@ -163,11 +173,11 @@ func _process(delta: float) -> void:
 					else :
 						target = ResourceManager.GetClosestResourceStorage(self.global_position)
 			
-			WorkerManager.JobType.Repair :
+			JobType.Repair :
 				# Find closest (or maybe lowest hp?) damaged building
 				pass
 	
-	# Do this while we have a target
+	### Do this while we have a target
 	if target != null :
 		distance_to_target = global_position.distance_to(target.global_position)
 		if distance_to_target > worker_range + (worker_height / 2) :
@@ -181,59 +191,48 @@ func _process(delta: float) -> void:
 			check_dest_timer = 0
 			if distance_to_target > stopping_dist :
 				SetDestination(GetDestFromTarget(target.global_position, stopping_dist))
-
 		
 		match current_job :
-			WorkerManager.JobType.Idle :
+			JobType.Idle :
 				# We shouldn't have a target if we're idle...
 				push_error("We are Idle but have a target... | " + str(self.name))
 				print_debug("")
 				pass
 			
-			WorkerManager.JobType.Gather :
-				print("GATHER DOING")
+			JobType.Gather :
 				if in_range :
 					if work_timer < work_cooldown :
 						work_timer += delta
 					else :
 						work_timer = 0
 						can_do_work = true
-				
 				if can_do_work :
 					target.TakeWork(work_amount)
 					can_do_work = false
 			
-			WorkerManager.JobType.Logistics :
-				print("LOGISTICS DOING")
+			JobType.Logistics :
 				if in_range and held_chunk == null :
-					print("IN RANGE OF CHUNK: " + str(target))
 					PickupChunk(target)
 				elif in_range and resource_request != null and held_chunk != null :
 					if target is Building :
-						print("ITS A BUILDING")
 						DeliverChunk(target, held_chunk, resource_request)
-						
-					else :
-						push_error("ERM... trying to deliver to something thats not a building")
 				elif in_range and held_chunk != null :
-					
 					if target is ResourceStorage :
-						print("IN RANGE OF STORAGE")
 						target.StoreChunk(held_chunk, held_chunk.chunk_resource)
 						held_chunk = null
 						target = null
 						in_range = false
 						find_new_target = true
-					else :
-						print("Not a resource storage..")
 			
-			WorkerManager.JobType.Repair :
+			# Build and repair together? Prioritize repair
+			JobType.Repair :
+				#TODO
 				pass
 	else :
 		in_range = false
 		
 		# we do a little bit of wandering
-		if current_job == WorkerManager.JobType.Idle :
+		if current_job == JobType.Idle :
 			if idle_waiting :
 				idle_wait_timer += delta
 				if idle_wait_timer > idle_wait_cooldown :
@@ -249,9 +248,8 @@ func _process(delta: float) -> void:
 		# Look for a target a number of times
 		# After long enough switch to Idle
 		pass
-	
-	
 
+### Movement and self righting
 func _physics_process(_delta: float) -> void:
 	if height_checked == false :
 		worker_height = CheckWorkerHeight()
@@ -286,7 +284,7 @@ func GetDestFromTarget(target_pos : Vector3, stopping_distance : float) -> Vecto
 func SetDestination(new_destination : Vector3) :
 	nav_agent.target_position = new_destination
 
-func SetJob(job : WorkerManager.JobType) :
+func SetJob(job : JobType) :
 	if target != null and target is ResourceChunk :
 		target.targeted = false
 	if held_chunk != null :
@@ -335,10 +333,9 @@ func DeliverChunk(building : Building, chunk : ResourceChunk, request : RequestM
 		resource_request = null
 	held_chunk = null
 
-
 func CheckWorkerHeight() -> float :
 	var height : float = 0
-	var raycast_result = DoRayCast(global_position, -global_basis.y, 10, false)
+	var raycast_result = Utility.DoRayCast(global_position, -global_basis.y, 10, false, self)
 	
 	if raycast_result.is_empty() :
 		height_checked = false
@@ -350,23 +347,3 @@ func CheckWorkerHeight() -> float :
 		height_checked = true
 	
 	return height
-
-# bring up to helper util class
-func DoRayCast(origin : Vector3, end : Vector3, length : float, can_collide_with_areas : bool) -> Dictionary :
-	var result : Dictionary
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(origin, end * length)
-	query.collide_with_areas = can_collide_with_areas
-	result = space_state.intersect_ray(query)
-	
-	return result
-
-
-
-
-
-
-
-
-
-# L

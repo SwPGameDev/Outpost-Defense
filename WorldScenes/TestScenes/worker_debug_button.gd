@@ -4,9 +4,5 @@ func _ready() -> void:
 	get_popup().connect("id_pressed", OnPressed)
 
 func OnPressed(id : int) :
-	#print(id)
-	
-	var workers_array : Array[Worker] = WorkerManager.worker_dict.keys()
-	
-	for worker in workers_array :
-		WorkerManager.AssignWorker(worker, WorkerManager.JobType.values()[id])
+	for worker : Worker in get_tree().get_nodes_in_group("Worker") :
+		worker.SetJob(Worker.JobType.values()[id])

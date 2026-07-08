@@ -139,7 +139,7 @@ func GetClosestColObj(results_array : Array[Dictionary], pos : Vector3) -> Node3
 
 func UpdateSelectWorkerUI() :
 	var name_string : String = "Name: " + str(_worker.name)
-	var job_string : String = str("\n") + "Job: " + str(WorkerManager.JobType.keys()[_worker.current_job])
+	var job_string : String = str("\n") + "Job: " + str(Worker.JobType.keys()[_worker.current_job])
 	var target_string : String = str("\n") + "Target: NULL"
 	if _worker.target != null :
 		target_string = str("\n") + "Target: " + str(_worker.target.name)
@@ -210,7 +210,8 @@ func HideSelectUI(sel_ui : Control) :
 
 func _on_option_button_item_selected(index: int) -> void  :
 	if selected_thing is Worker :
-		WorkerManager.AssignWorker(selected_thing, index)
+		var worker : Worker = selected_thing 
+		worker.SetJob(index)
 	#HideSelectUI(select_ui)
 
 
