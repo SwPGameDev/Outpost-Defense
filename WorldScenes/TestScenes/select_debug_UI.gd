@@ -23,9 +23,10 @@ var current_state : SelectionStates
 
 @export var ground : Node3D
 
-enum Selectables {worker, resourcenode, resourcechunk, building} ## worker, resourcenode, resourcechunk, building
-var cur_select : Selectables
-var selected_thing : Variant = null
+@export_group("Selected")
+enum Selectables {worker, resource_node, resource_chunk, building} ## worker, resourcenode, resourcechunk, building
+@export var cur_select : Selectables
+@export var selected_thing : Variant = null
 var _worker : Worker
 
 var cam : Camera3D
@@ -38,13 +39,17 @@ var check_pos : Vector3
 
 func _ready() -> void:
 	cam = get_viewport().get_camera_3d()
+	
+	HideUI(worker_info_ui)
+	HideUI(building_info_ui)
+	HideUI(resource_info_ui)
 
 func _process(_delta: float) -> void:
 	if selected_thing != null :
 		if selected_thing is Worker :
 			UpdateSelectWorkerUI()
 		elif selected_thing is Building :
-			pass
+			UpdateBuildingUI(building_info_label, selected_thing)
 		elif selected_thing is ResourceNode or selected_thing is ResourceChunk :
 			UpdateResourceUI(resource_info_label, selected_thing)
 		
@@ -75,8 +80,6 @@ func _physics_process(_delta: float) -> void:
 		var ray_results : Dictionary = Utility.MouseViewPortRayCast()
 		var sphere_results : Array[Dictionary]
 		
-		
-		
 		if ray_results.size() > 0 :
 			check_pos = ray_results.position
 			
@@ -85,22 +88,35 @@ func _physics_process(_delta: float) -> void:
 				sphere_results = Utility.TrySphereCast(check_pos, check_radius, 50)
 				if sphere_results.size() > 0 :
 					selected_thing = GetClosestColObj(sphere_results, check_pos)
-				
 		
-		if selected_thing is Worker :
-			_worker = selected_thing
-		else :
-			_worker = null
+		
 		
 		if selected_thing != null :
 			print("SELECTED THING: " + str(selected_thing.name))
-		
-		if _worker != null :
-			MoveSelectUI(option_button, worker_info_ui, _worker, ui_offset)
+			
+			HideUI(worker_info_ui)
+			HideUI(building_info_ui)
+			HideUI(resource_info_ui)
+			
+			print(selected_thing)
+			match cur_select :
+				Selectables.worker :
+					_worker = selected_thing
+					ShowUI(worker_info_ui)
+					MoveWorkerSelectUI(worker_info_ui, _worker, ui_offset)
+				Selectables.resource_node :
+					ShowUI(resource_info_ui)
+					MoveUI(resource_info_ui, selected_thing, ui_offset)
+				Selectables.resource_chunk :
+					ShowUI(resource_info_ui)
+					MoveUI(resource_info_ui, selected_thing, ui_offset)
+				Selectables.building :
+					ShowUI(building_info_ui)
+					MoveUI(building_info_ui, selected_thing, ui_offset)
 		else :
-			pass
-			#HideSelectUI(worker_info_ui)
-
+			HideUI(worker_info_ui)
+			HideUI(building_info_ui)
+			HideUI(resource_info_ui)
 
 func CheckResults(result : Dictionary) -> Variant :
 	var thing : Variant = null
@@ -108,10 +124,10 @@ func CheckResults(result : Dictionary) -> Variant :
 		cur_select = Selectables.worker
 		thing = result.collider
 	elif result.collider is ResourceNode :
-		cur_select = Selectables.resourcenode
+		cur_select = Selectables.resource_node
 		thing = result.collider
 	elif result.collider is ResourceChunk :
-		cur_select = Selectables.resourcechunk
+		cur_select = Selectables.resource_chunk
 		thing = result.collider
 	elif result.collider is Building :
 		cur_select = Selectables.building
@@ -119,8 +135,8 @@ func CheckResults(result : Dictionary) -> Variant :
 	else :
 		# couldn't find
 		thing = null
+	print("!!!THING!!!: " + str(thing))
 	return thing
-
 
 func GetClosestColObj(results_array : Array[Dictionary], pos : Vector3) -> Node3D :
 	var shortest_distance : float = INF
@@ -135,7 +151,6 @@ func GetClosestColObj(results_array : Array[Dictionary], pos : Vector3) -> Node3
 				closest = CheckResults(res)
 				
 	return closest
-
 
 func UpdateSelectWorkerUI() :
 	var name_string : String = "Name: " + str(_worker.name)
@@ -152,7 +167,6 @@ func UpdateSelectWorkerUI() :
 	
 	worker_info_label.text = name_string + job_string + target_string + request_string + resource_prio_string
 
-
 #Name: --
 #Building Type: --
 #Resource Request: --
@@ -161,14 +175,14 @@ func UpdateSelectWorkerUI() :
 #Delivered: {-,-,-,-,-}
 func UpdateBuildingUI(label : Label, selected : Variant) :
 	var name_string : String = "Name: " + str(selected.name)
-	
+	blarg
+	###TODO finish this :)
 	if selected is TownHall :
 		pass
 	elif selected_thing is ResourceStorage :
 		pass
 	
 	pass
-
 
 func UpdateResourceUI(label : Label, selected : Variant) :
 	var name_string : String = "Name: " + str(selected.name)
@@ -194,19 +208,22 @@ func UpdateResourceUI(label : Label, selected : Variant) :
 		
 		label.text = name_string + resource_type_string + work_needed_string
 
-func MoveSelectUI(opt_button : OptionButton, sel_ui : Control, worker : Worker, offset : Vector2) :
-	opt_button.selected = worker.current_job
+func MoveWorkerSelectUI(con : Control, worker : Worker, offset : Vector2) :
+	print("CON: " + str(con) + " | Worker: " + str(worker) + " | Offset: " + str(offset))
+	option_button.selected = worker.current_job
 	option_button.get_popup().get_window().visible = false
-	sel_ui.visible = not get_viewport().get_camera_3d().is_position_behind(worker.global_transform.origin)
-	sel_ui.position = get_viewport().get_camera_3d().unproject_position(worker.global_transform.origin)
-	sel_ui.position += offset
+	MoveUI(con, worker, offset)
 
-func ShowSelectUI(sel_ui : Control) :
-	sel_ui.visible = true
+func ShowUI(con : Control) :
+	con.visible = true
 
-func HideSelectUI(sel_ui : Control) :
-	sel_ui.visible = false
-	selected_thing = null
+func HideUI(con : Control) :
+	con.visible = false
+
+func MoveUI(con : Control, target : Node3D, offset : Vector2) :
+	con.visible = not get_viewport().get_camera_3d().is_position_behind(target.global_transform.origin)
+	con.position = get_viewport().get_camera_3d().unproject_position(target.global_transform.origin)
+	con.position += offset
 
 func _on_option_button_item_selected(index: int) -> void  :
 	if selected_thing is Worker :

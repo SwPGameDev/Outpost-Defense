@@ -29,6 +29,7 @@ enum JobType {Idle, Gather, Logistics, Repair}
 
 # TODO
 # - Seperate worker behaivor into:
+# - FSM
 # - Data holder stuff used across all: State, Target, Stats
 # -- Movement
 # -- Inventory
@@ -83,6 +84,9 @@ var idle_wandering : bool = false
 var work_timer : float = 0
 @export var work_amount : float = 1
 var can_do_work : bool = false
+
+@export_group("Combat")
+@export var combat : CombatBehavior
 
 func _ready() -> void:
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -272,6 +276,9 @@ func _physics_process(_delta: float) -> void:
 
 func _on_velocity_computed(safe_velocity : Vector3) :
 	linear_velocity = safe_velocity
+
+func TakeHit(_damage : float) :
+	combat.TryTakeHit(_damage)
 
 func GetDestFromTarget(target_pos : Vector3, stopping_distance : float) -> Vector3 :
 	var current_pos = global_position

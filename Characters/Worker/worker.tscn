@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bd8w8jdj7oshx"]
 
 [ext_resource type="Script" uid="uid://b13jkdbqf2cum" path="res://Characters/Worker/worker_behavior.gd" id="1_8w0bo"]
+[ext_resource type="Script" uid="uid://b3gdmc78qhxsm" path="res://Characters/unit_combat_behavior.gd" id="2_u1olj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8w0bo"]
 friction = 0.1
@@ -13,7 +14,9 @@ albedo_color = Color(4.813075e-08, 0.427371, 0.30050135, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u1olj"]
 
-[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent", "hold_pos") groups=["Worker"]]
+[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent", "hold_pos", "combat") groups=["Worker"]]
+collision_layer = 4
+collision_mask = 31
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_8w0bo")
@@ -23,6 +26,7 @@ script = ExtResource("1_8w0bo")
 nav_agent = NodePath("NavigationAgent3D")
 worker_range = 2.0
 hold_pos = NodePath("HoldPoint")
+combat = NodePath("CombatBehavior")
 metadata/_custom_type_script = "uid://b13jkdbqf2cum"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=759157175]
@@ -42,3 +46,9 @@ debug_enabled = true
 
 [node name="HoldPoint" type="Node3D" parent="." unique_id=1463381787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="CombatBehavior" type="Node" parent="." unique_id=535685829 node_paths=PackedStringArray("unit_root")]
+script = ExtResource("2_u1olj")
+unit_root = NodePath("..")
+max_hp = 12.0
+metadata/_custom_type_script = "uid://b3gdmc78qhxsm"
