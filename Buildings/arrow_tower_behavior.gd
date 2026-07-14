@@ -1,5 +1,6 @@
 @icon("res://addons/at-icons/node3d/tower.svg")
 extends Building
+class_name ArrowTower
 
 @export_group("Debug")
 @export var debug : bool = false

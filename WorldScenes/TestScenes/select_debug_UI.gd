@@ -168,21 +168,30 @@ func UpdateSelectWorkerUI() :
 	worker_info_label.text = name_string + job_string + target_string + request_string + resource_prio_string
 
 #Name: --
-#Building Type: --
+#Type: --
 #Resource Request: --
 #Missing : {-,-,-,-,-}
 #Moving: {-,-,-,-,-}
 #Delivered: {-,-,-,-,-}
 func UpdateBuildingUI(label : Label, selected : Variant) :
 	var name_string : String = "Name: " + str(selected.name)
-	blarg
+	var building_type_string : String = ""
+	
 	###TODO finish this :)
 	if selected is TownHall :
-		pass
-	elif selected_thing is ResourceStorage :
-		pass
+		building_type_string = "\n" + "Type: Townhall"
+		
+	elif selected is House :
+		building_type_string = "\n" + "Type: House"
+		
+	elif selected is ResourceStorage :
+		building_type_string = "\n" + "Type: Storage"
+		
+	elif selected is ArrowTower :
+		building_type_string = "\n" + "Type: Arrow Tower"
+		
 	
-	pass
+	label.text = name_string + building_type_string
 
 func UpdateResourceUI(label : Label, selected : Variant) :
 	var name_string : String = "Name: " + str(selected.name)

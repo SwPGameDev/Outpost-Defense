@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cfm5f5txwak2t"]
+
+[ext_resource type="Script" uid="uid://bkuc61r0xj1ee" path="res://Characters/TestEnemy/enemy_behavior.gd" id="1_tnmh4"]
+[ext_resource type="Script" uid="uid://d0oh6mgpib2cf" path="res://Characters/TestEnemy/enemy_movement.gd" id="2_j34lq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2ov11"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hjh8e"]
+albedo_color = Color(0.7723927, 0, 0.014759199, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2ov11"]
+material = SubResource("StandardMaterial3D_hjh8e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kjqo"]
+albedo_color = Color(0.9745297, 0.62338614, 1.540184e-06, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2ov11"]
+material = SubResource("StandardMaterial3D_6kjqo")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.25
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yqpnd"]
+albedo_color = Color(0.12591085, 0.12591085, 0.12591082, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ov11"]
+material = SubResource("StandardMaterial3D_yqpnd")
+size = Vector3(0.3, 0.1, 0.1)
+
+[node name="EnemyUnit" type="RigidBody3D" unique_id=1852623184 node_paths=PackedStringArray("movement", "combat")]
+script = ExtResource("1_tnmh4")
+movement = NodePath("Movement")
+combat = NodePath("Combat")
+metadata/_custom_type_script = "uid://bkuc61r0xj1ee"
+
+[node name="Movement" type="Node" parent="." unique_id=405530211 node_paths=PackedStringArray("rb", "nav_agent")]
+script = ExtResource("2_j34lq")
+rb = NodePath("..")
+nav_agent = NodePath("../NavigationAgent3D")
+
+[node name="Combat" type="Node" parent="." unique_id=1113025318]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1404333683]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1680656221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_2ov11")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=23821395]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_2ov11")
+
+[node name="Face" type="Node3D" parent="Mesh" unique_id=799114750]
+
+[node name="LeftEye" type="MeshInstance3D" parent="Mesh/Face" unique_id=1412734560]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.15, 0.5, 0.39999998)
+mesh = SubResource("CylinderMesh_2ov11")
+
+[node name="RightEye" type="MeshInstance3D" parent="Mesh/Face" unique_id=1781741374]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.15, 0.5, 0.39999998)
+mesh = SubResource("CylinderMesh_2ov11")
+
+[node name="LeftBrow" type="MeshInstance3D" parent="Mesh/Face" unique_id=603766640]
+transform = Transform3D(0.8660254, 2.1855694e-08, 0.5, 0.5, -3.7855173e-08, -0.8660254, 0, 1, -4.371139e-08, 0.15, 0.6999999, 0.45)
+mesh = SubResource("BoxMesh_2ov11")
+
+[node name="RightBrow" type="MeshInstance3D" parent="Mesh/Face" unique_id=553137686]
+transform = Transform3D(0.8660254, -2.1855698e-08, -0.5, -0.5, -3.7855173e-08, -0.8660254, 0, 1, -4.371139e-08, -0.15, 0.6999999, 0.45)
+mesh = SubResource("BoxMesh_2ov11")
