@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://1i7cmxnllqnh"]
+
+[ext_resource type="Script" uid="uid://s7kslfw22s54" path="res://Buildings/wall_behavior.gd" id="1_frb1j"]
+[ext_resource type="Material" uid="uid://mw1v010iwte" path="res://Art/Materials/Buildings/StorageMat.tres" id="2_hlgo0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6fggq"]
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yqpnd"]
+size = Vector3(2, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6tgvo"]
+height = 0.2
+
+[node name="Wall_2x1" type="StaticBody3D" unique_id=1306297440 node_paths=PackedStringArray("construction_collider", "finished_collider", "construction_mesh", "finished_mesh") groups=["Wall"]]
+script = ExtResource("1_frb1j")
+construction_collider = NodePath("FoundationCol")
+finished_collider = NodePath("Collider")
+construction_mesh = NodePath("FoundationMesh")
+finished_mesh = NodePath("Mesh")
+metadata/_custom_type_script = "uid://s7kslfw22s54"
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=952692116]
+radius = 0.5
+
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=1959835281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0)
+shape = SubResource("BoxShape3D_2ov11")
+disabled = true
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1269651244]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+material_override = ExtResource("2_hlgo0")
+mesh = SubResource("CylinderMesh_6fggq")
+
+[node name="Mesh2" type="MeshInstance3D" parent="Mesh" unique_id=251130920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+material_override = ExtResource("2_hlgo0")
+mesh = SubResource("CylinderMesh_6fggq")
+
+[node name="FoundationCol" type="CollisionShape3D" parent="." unique_id=1005592604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.125, 0)
+shape = SubResource("BoxShape3D_yqpnd")
+
+[node name="FoundationMesh" type="MeshInstance3D" parent="." unique_id=1864972477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("CylinderMesh_6tgvo")
+
+[node name="FoundationMesh2" type="MeshInstance3D" parent="FoundationMesh" unique_id=39360034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("CylinderMesh_6tgvo")
+
+[node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="." unique_id=779319113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+radius = 0.5

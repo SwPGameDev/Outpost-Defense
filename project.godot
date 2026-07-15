@@ -42,6 +42,9 @@ ResourceChunk=""
 ResourceStorage=""
 TownHall=""
 Tower=""
+Enemy=""
+Wall=""
+House=""
 
 [input]
 

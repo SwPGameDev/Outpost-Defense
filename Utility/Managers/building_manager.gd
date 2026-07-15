@@ -14,6 +14,8 @@ var build_indicator : Node3D = null
 var town_hall_scene : PackedScene = preload("res://Buildings/town_hall.tscn")
 var resource_storage_scene : PackedScene = preload("res://Buildings/resource_storage.tscn")
 var house_scene : PackedScene = preload("res://Buildings/house.tscn")
+var wall_1x1_scene : PackedScene = preload("res://Buildings/wall_1x_1.tscn")
+var wall_2x1_scene : PackedScene = preload("res://Buildings/wall_2x_1.tscn")
 var arrow_tower_scene : PackedScene = preload("res://Buildings/arrow_tower.tscn")
 
 var selector_index : int = 0
@@ -21,6 +23,8 @@ var building_scenes : Array[PackedScene] = [
 	town_hall_scene,
 	resource_storage_scene,
 	house_scene,
+	wall_1x1_scene,
+	wall_2x1_scene,
 	arrow_tower_scene
 	]
 

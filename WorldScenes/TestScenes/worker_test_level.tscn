@@ -23,6 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://4kw71ju57gmk" path="res://Resources/Chunks/food_chunk.tscn" id="14_vu4am"]
 [ext_resource type="PackedScene" uid="uid://qqafnd46vouw" path="res://Buildings/resource_storage.tscn" id="15_iagux"]
 [ext_resource type="PackedScene" uid="uid://oc864ldbog7c" path="res://Buildings/arrow_tower.tscn" id="23_vj1u5"]
+[ext_resource type="PackedScene" uid="uid://cfm5f5txwak2t" path="res://Characters/TestEnemy/enemy_unit.tscn" id="24_5a4cw"]
+[ext_resource type="PackedScene" uid="uid://bcmcn42pq1mne" path="res://Buildings/wall_1x_1.tscn" id="25_v1wvp"]
+[ext_resource type="PackedScene" uid="uid://1i7cmxnllqnh" path="res://Buildings/wall_2x_1.tscn" id="26_fqymp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vj1u5"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -407,6 +410,17 @@ debug = true
 debug_target = NodePath("../Workers/Worker1")
 launch_force = 25.0
 max_hp = 5.0
+
+[node name="EnemyUnit" parent="." unique_id=1852623184 node_paths=PackedStringArray("debug_target") instance=ExtResource("24_5a4cw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, -17)
+debug_enabled = true
+debug_target = NodePath("../DebugTarget")
+
+[node name="Wall1x1" parent="." unique_id=788096829 instance=ExtResource("25_v1wvp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -15)
+
+[node name="Wall_2x1" parent="." unique_id=1306297440 instance=ExtResource("26_fqymp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -18)
 
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/MenuButton" to="TestUI/Control/ButtonRoot/MenuButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" to="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" method="_on_pressed"]

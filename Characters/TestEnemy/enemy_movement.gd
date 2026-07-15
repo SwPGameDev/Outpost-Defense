@@ -4,10 +4,6 @@ extends Node
 
 @export var move_speed : float = 4
 @export var nav_agent : NavigationAgent3D
-@export var target : Node3D
-var distance_to_target : float
-@export var stopping_dist : float = 1
-var in_range : bool
 
 func _physics_process(_delta: float) -> void:
 	

@@ -9,10 +9,10 @@ var held_delivery_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceTyp
 var current_work : float = 0
 var building_complete : bool = false
 
-@export var con_col_shape : CollisionShape3D
-@export var fin_col_shape : CollisionObject3D
-@export var con_mesh : MeshInstance3D
-@export var fin_mesh : MeshInstance3D
+@export var construction_collider : CollisionShape3D
+@export var finished_collider : CollisionShape3D
+@export var construction_mesh : MeshInstance3D
+@export var finished_mesh : MeshInstance3D
 
 func _ready() -> void:
 	current_hp = max_hp
@@ -51,11 +51,11 @@ func TakeHit(damage_value : float) :
 		BuildingDie()
 
 func SwapToBuilt() :
-	con_mesh.visible = false
-	con_col_shape.set_deferred("disabled", true)
+	construction_mesh.visible = false
+	construction_collider.set_deferred("disabled", true)
 	
-	fin_mesh.visible = true
-	fin_col_shape.set_differed("disabled", false)
+	finished_mesh.visible = true
+	finished_collider.set_differed("disabled", false)
 
 func BuildingDie() :
 	pass

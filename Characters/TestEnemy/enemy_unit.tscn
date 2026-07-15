@@ -28,10 +28,12 @@ albedo_color = Color(0.12591085, 0.12591085, 0.12591082, 1)
 material = SubResource("StandardMaterial3D_yqpnd")
 size = Vector3(0.3, 0.1, 0.1)
 
-[node name="EnemyUnit" type="RigidBody3D" unique_id=1852623184 node_paths=PackedStringArray("movement", "combat")]
+[node name="EnemyUnit" type="RigidBody3D" unique_id=1852623184 node_paths=PackedStringArray("combat", "movement") groups=["Enemy"]]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_tnmh4")
-movement = NodePath("Movement")
 combat = NodePath("Combat")
+movement = NodePath("Movement")
 metadata/_custom_type_script = "uid://bkuc61r0xj1ee"
 
 [node name="Movement" type="Node" parent="." unique_id=405530211 node_paths=PackedStringArray("rb", "nav_agent")]
