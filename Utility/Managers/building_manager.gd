@@ -8,6 +8,9 @@ var in_build_mode : bool = false
 var mouse_pos : Vector3
 var build_pos : Vector3
 
+var build_node : Node3D
+var rotation_amount : float = 90
+
 var building_indicator_1x1 : PackedScene = preload("res://Buildings/TestBuildingIndicators/1x1Indicator.tscn")
 var build_indicator : Node3D = null
 
@@ -46,23 +49,25 @@ func _ready() -> void:
 	selector_index = 0
 	selected_building = building_scenes[selector_index]
 	
+	build_node = Node3D.new()
+	add_child(build_node)
+	build_node.name = "Build Node"
+	
 	var test_indicator = building_indicator_1x1.instantiate()
 	add_child(test_indicator)
 	build_indicator = test_indicator
 	build_indicator.visible = false
 
 func _process(_delta: float) -> void:
-	if debug_indicators :
-		DebugDraw.draw_line_relative_thick(mouse_pos, Vector3.UP, 2, Color.ORANGE)
-		DebugDraw.draw_line_relative_thick(build_pos, Vector3.UP, 2, Color.GHOST_WHITE)
-	
-	
 	if Input.is_action_just_pressed("build_mode") :
 		in_build_mode = !in_build_mode
 		build_indicator.visible = !build_indicator.visible
 	
-	
 	if in_build_mode :
+		if debug_indicators :
+			DebugDraw.draw_line_relative_thick(mouse_pos, Vector3.UP, 2, Color.ORANGE)
+			DebugDraw.draw_line_relative_thick(build_pos, Vector3.UP, 2, Color.GHOST_WHITE)
+		
 		if Input.is_action_just_pressed("build_sel_next") :
 			selector_index += 1
 			if selector_index >= building_scenes.size() :
@@ -75,7 +80,12 @@ func _process(_delta: float) -> void:
 				selector_index = building_scenes.size() - 1
 			selected_building = building_scenes[selector_index]
 		
-		
+		if Input.is_action_just_pressed("build_rot_left") :
+			build_node.rotate_object_local(Vector3.UP, deg_to_rad(rotation_amount))
+			build_indicator.rotation = build_node.rotation
+		if Input.is_action_just_pressed("build_rot_right") :
+			build_node.rotate_object_local(Vector3.UP, -deg_to_rad(rotation_amount))
+			build_indicator.rotation = build_node.rotation
 		
 		var mouse_ray_results : Dictionary = Utility.MouseViewPortRayCast(1000, level_root.ground_only_collision_mask)
 		if not mouse_ray_results.is_empty() :
@@ -97,6 +107,7 @@ func TryPlaceFoundation(building_scene : PackedScene, position : Vector3) :
 	var new_building : Building = load(building_scene.resource_path).instantiate()
 	add_child(new_building)
 	new_building.global_position = position
+	new_building.rotation = build_node.rotation
 	new_building.reparent(building_parent)
 
 func CreateBuildingRequest(building : Building, cost : RequestManager.Resource_Cost) :

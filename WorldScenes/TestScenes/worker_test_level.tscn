@@ -9,8 +9,10 @@
 [ext_resource type="Script" uid="uid://wc6bbjxmnpiq" path="res://WorldScenes/TestScenes/worker_spawn_button.gd" id="3_fst4r"]
 [ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="3_k7njs"]
 [ext_resource type="PackedScene" uid="uid://d3u2d2aikhsv3" path="res://Resources/Chunks/gold_chunk.tscn" id="4_8a7s8"]
+[ext_resource type="Script" uid="uid://l268wmcn3akk" path="res://WorldScenes/TestScenes/enemy_spawn_button.gd" id="5_0oel1"]
 [ext_resource type="PackedScene" uid="uid://b4nseybi7knwr" path="res://Resources/Chunks/wood_chunk.tscn" id="5_eskjq"]
 [ext_resource type="PackedScene" uid="uid://cis0nl4n0ymtu" path="res://Resources/Chunks/stone_chunk.tscn" id="6_bv7qf"]
+[ext_resource type="Script" uid="uid://cry6erimbl1cy" path="res://Characters/TestEnemy/enemy_spawner.gd" id="7_fqymp"]
 [ext_resource type="PackedScene" uid="uid://dkitka82v8u3k" path="res://Resources/Chunks/iron_chunk.tscn" id="7_rjr5o"]
 [ext_resource type="PackedScene" uid="uid://dt4iu0bhj8xha" path="res://Resources/Nodes/food_resource_node.tscn" id="8_0hoem"]
 [ext_resource type="PackedScene" uid="uid://cswkysp5p53bp" path="res://Resources/Chunks/crystal_chunk.tscn" id="8_q6erq"]
@@ -127,6 +129,17 @@ spawn_pos = NodePath("../../../../Workers/WorkerSpawnPoint")
 spawn_offset = Vector3(0, 1, 0)
 worker_parent = NodePath("../../../../Workers")
 level_root = NodePath("../../../..")
+
+[node name="EnemySpawn" type="Button" parent="TestUI/Control/ButtonRoot" unique_id=823832889 node_paths=PackedStringArray("enemy_spawner")]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 16.0
+offset_right = 716.0
+offset_bottom = 64.0
+focus_mode = 0
+text = "Spawn Basic Enemy"
+script = ExtResource("5_0oel1")
+enemy_spawner = NodePath("../../../../EnemySpawner")
 
 [node name="Control2" type="Control" parent="TestUI" unique_id=1486919827]
 layout_mode = 3
@@ -299,6 +312,16 @@ Held: --
 Stored: --
 Delivered: --"
 
+[node name="EnemySpawner" type="Node3D" parent="." unique_id=69085482 node_paths=PackedStringArray("spawn_point", "debug_target")]
+script = ExtResource("7_fqymp")
+enemy_basic_soldier_scene = ExtResource("24_5a4cw")
+spawn_point = NodePath("SpawnPoint")
+enable_debug = true
+debug_target = NodePath("../DebugTarget")
+
+[node name="SpawnPoint" type="Node3D" parent="EnemySpawner" unique_id=1486108463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 17.5)
+
 [node name="Buildings" type="Node3D" parent="." unique_id=1883383936]
 
 [node name="TownHall" parent="Buildings" unique_id=360267369 node_paths=PackedStringArray("level_root", "worker_parent") instance=ExtResource("12_y4mkk")]
@@ -425,4 +448,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -18)
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/MenuButton" to="TestUI/Control/ButtonRoot/MenuButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" to="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/WorkerSpawnButton" to="TestUI/Control/ButtonRoot/WorkerSpawnButton" method="_on_pressed"]
+[connection signal="pressed" from="TestUI/Control/ButtonRoot/EnemySpawn" to="TestUI/Control/ButtonRoot/EnemySpawn" method="_on_pressed"]
 [connection signal="item_selected" from="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer/OptionButton" to="TestUI/Control2/SelectDebugUI" method="_on_option_button_item_selected"]
