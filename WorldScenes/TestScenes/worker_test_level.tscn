@@ -50,7 +50,7 @@ cell_height = 0.05
 [sub_resource type="SphereMesh" id="SphereMesh_bjxgj"]
 material = ExtResource("2_wo14j")
 
-[node name="PlayerTestGym" type="Node3D" unique_id=94953513 node_paths=PackedStringArray("ground", "buildings_parent", "resource_nodes_parent", "resource_chunks_parent", "workers_parent")]
+[node name="WorkerTestLevel" type="Node3D" unique_id=94953513 node_paths=PackedStringArray("ground", "buildings_parent", "resource_nodes_parent", "resource_chunks_parent", "workers_parent")]
 script = ExtResource("1_xhipu")
 ground = NodePath("Ground")
 buildings_parent = NodePath("Buildings")
@@ -146,6 +146,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -23.0
+offset_top = 2.0
+offset_right = -23.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -154,10 +158,10 @@ mouse_filter = 2
 script = ExtResource("1_uwgho")
 spherecast_indicator = NodePath("spherecast_indicator")
 worker_info_ui = NodePath("../WorkerInfoUI")
-worker_info_label = NodePath("../WorkerInfoUI/SplitContainer/HBoxContainer/FoldableContainer/MarginContainer/WorkerInfoLabel")
-option_button = NodePath("../WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer/OptionButton")
+worker_info_label = NodePath("../WorkerInfoUI/HBoxContainer/FoldableContainer/MarginContainer/WorkerInfoLabel")
+option_button = NodePath("../WorkerInfoUI/HBoxContainer/MarginContainer/OptionButton")
 building_info_ui = NodePath("../BuildingInfoUI")
-building_info_label = NodePath("../BuildingInfoUI/Panel/MarginContainer/BuildingInfoLabel")
+building_info_label = NodePath("../BuildingInfoUI/HBoxContainer/MarginContainer/BuildingInfoLabel")
 resource_info_ui = NodePath("../ResourceInfoUI")
 resource_info_label = NodePath("../ResourceInfoUI/Panel/MarginContainer/ResourceInfoLabel")
 ground = NodePath("../../../Ground")
@@ -176,25 +180,19 @@ offset_top = 128.0
 offset_right = 1280.0
 offset_bottom = 128.0
 
-[node name="SplitContainer" type="SplitContainer" parent="TestUI/Control2/WorkerInfoUI" unique_id=1983984740]
+[node name="HBoxContainer" type="HBoxContainer" parent="TestUI/Control2/WorkerInfoUI" unique_id=1238688742]
 layout_mode = 0
 offset_top = -32.0
 offset_right = 472.0
 offset_bottom = 120.0
-split_offsets = PackedInt32Array(-325)
-dragging_enabled = false
-split_offset = -325
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer" unique_id=1238688742]
-layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer" unique_id=932692320]
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/WorkerInfoUI/HBoxContainer" unique_id=932692320]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="OptionButton" type="OptionButton" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer" unique_id=1250876193]
+[node name="OptionButton" type="OptionButton" parent="TestUI/Control2/WorkerInfoUI/HBoxContainer/MarginContainer" unique_id=1250876193]
 layout_mode = 2
 focus_mode = 0
 alignment = 2
@@ -210,14 +208,14 @@ popup/item_2/id = 2
 popup/item_3/text = "Repair"
 popup/item_3/id = 3
 
-[node name="Label" type="Label" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer" unique_id=1376921059]
+[node name="Label" type="Label" parent="TestUI/Control2/WorkerInfoUI/HBoxContainer/MarginContainer" unique_id=1376921059]
 layout_mode = 2
 size_flags_horizontal = 0
 offset_transform_enabled = true
 offset_transform_position = Vector2(8, 0)
 text = "Assign Job"
 
-[node name="FoldableContainer" type="FoldableContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer" unique_id=504464826]
+[node name="FoldableContainer" type="FoldableContainer" parent="TestUI/Control2/WorkerInfoUI/HBoxContainer" unique_id=504464826]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -228,7 +226,7 @@ folded = true
 title = "Debug Info"
 title_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/FoldableContainer" unique_id=1732397069]
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/WorkerInfoUI/HBoxContainer/FoldableContainer" unique_id=1732397069]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
@@ -236,7 +234,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="WorkerInfoLabel" type="Label" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/FoldableContainer/MarginContainer" unique_id=1635201098]
+[node name="WorkerInfoLabel" type="Label" parent="TestUI/Control2/WorkerInfoUI/HBoxContainer/FoldableContainer/MarginContainer" unique_id=1635201098]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Job: --
@@ -253,23 +251,29 @@ offset_bottom = 127.0
 
 [node name="Panel" type="Panel" parent="TestUI/Control2/BuildingInfoUI" unique_id=18288345]
 layout_mode = 0
-offset_right = 192.0
-offset_bottom = 168.0
+offset_left = 9.0
+offset_right = 469.0
+offset_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/BuildingInfoUI/Panel" unique_id=597205490]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="TestUI/Control2/BuildingInfoUI" unique_id=2093307551]
+layout_mode = 0
+offset_left = 9.0
+offset_right = 456.0
+offset_bottom = 233.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer" unique_id=597205490]
+layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="BuildingInfoLabel" type="Label" parent="TestUI/Control2/BuildingInfoUI/Panel/MarginContainer" unique_id=935554836]
+[node name="BuildingInfoLabel" type="Label" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/MarginContainer" unique_id=935554836]
 layout_mode = 2
 text = "Name: --
 Building Type: --
@@ -277,6 +281,41 @@ Resource Request: --
 Missing : {-,-,-,-,-}
 Moving: {-,-,-,-,-}
 Delivered: {-,-,-,-,-}"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer" unique_id=1601422636]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer" unique_id=660711303]
+layout_mode = 2
+
+[node name="TakeWorkButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1493135207]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Take Work"
+
+[node name="TakeHitButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=251696912]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Take Hit"
+
+[node name="TakeRepairButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=287081267]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Take Repair"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer" unique_id=973258399]
+layout_mode = 2
+
+[node name="TakeWorkButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1959634711]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Finish Build"
+
+[node name="TakeHitButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1305860808]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Destory Build"
 
 [node name="ResourceInfoUI" type="Control" parent="TestUI/Control2" unique_id=1201086968]
 anchors_preset = 0
@@ -449,4 +488,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -18)
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" to="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/WorkerSpawnButton" to="TestUI/Control/ButtonRoot/WorkerSpawnButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/EnemySpawn" to="TestUI/Control/ButtonRoot/EnemySpawn" method="_on_pressed"]
-[connection signal="item_selected" from="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer/OptionButton" to="TestUI/Control2/SelectDebugUI" method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TestUI/Control2/WorkerInfoUI/HBoxContainer/MarginContainer/OptionButton" to="TestUI/Control2/SelectDebugUI" method="_on_option_button_item_selected"]

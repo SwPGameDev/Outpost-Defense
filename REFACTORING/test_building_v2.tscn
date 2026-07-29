@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dqvpdnwvsr6fo"]
+
+[ext_resource type="Script" uid="uid://uq2gqqdmvykw" path="res://REFACTORING/building.gd" id="1_y2x7h"]
+[ext_resource type="Resource" uid="uid://dqhjjlynsatby" path="res://REFACTORING/TestBuildingCost.tres" id="2_jvcg6"]
+
+[node name="TestBuilding" type="StaticBody3D" unique_id=42643449]
+script = ExtResource("1_y2x7h")
+resource_cost = ExtResource("2_jvcg6")
+max_hp = null
+total_work_needed = null
+metadata/_custom_type_script = "uid://uq2gqqdmvykw"

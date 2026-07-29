@@ -1,6 +1,9 @@
 extends StaticBody3D
 class_name Building
 
+@export var resource_cost : ResourceCost
+
+
 @export var max_hp : float
 var current_hp : float
 var held_delivery_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceType] = {}
@@ -9,10 +12,10 @@ var held_delivery_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceTyp
 var current_work : float = 0
 var building_complete : bool = false
 
-@export var construction_collider : CollisionShape3D
-@export var finished_collider : CollisionShape3D
-@export var construction_mesh : MeshInstance3D
-@export var finished_mesh : MeshInstance3D
+@export var foundation_collider : CollisionShape3D
+@export var foundation_mesh : Node3D
+@export var building_collider : CollisionShape3D
+@export var building_mesh : Node3D
 
 func _ready() -> void:
 	current_hp = max_hp

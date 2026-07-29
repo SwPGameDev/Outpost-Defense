@@ -190,6 +190,8 @@ func UpdateBuildingUI(label : Label, selected : Variant) :
 	elif selected is ArrowTower :
 		building_type_string = "\n" + "Type: Arrow Tower"
 		
+	elif selected is Wall :
+		building_type_string = "\n" + "Type: Wall"
 	
 	label.text = name_string + building_type_string
 
