@@ -6,6 +6,5 @@
 [node name="TestBuilding" type="StaticBody3D" unique_id=42643449]
 script = ExtResource("1_y2x7h")
 resource_cost = ExtResource("2_jvcg6")
-max_hp = null
-total_work_needed = null
+max_hp = 20.0
 metadata/_custom_type_script = "uid://uq2gqqdmvykw"

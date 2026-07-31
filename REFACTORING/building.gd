@@ -3,6 +3,9 @@ class_name Building
 
 @export var resource_cost : ResourceCost
 
+@export var needed_cost : ResourceCost = ResourceCost.new() ## What's still needed
+@export var pending_cost : ResourceCost = ResourceCost.new() ## What's with a logi worker on the way
+@export var delivered_cost : ResourceCost = ResourceCost.new() ## What's temp held at building
 
 @export var max_hp : float
 var current_hp : float
@@ -19,10 +22,26 @@ var building_complete : bool = false
 
 func _ready() -> void:
 	current_hp = max_hp
+	
+	needed_cost = resource_cost.duplicate()
+
+func ResetCosts() :
+	needed_cost = ResourceCost.new()
+	pending_cost = ResourceCost.new()
+	delivered_cost = ResourceCost.new()
+
+func UpdatePending(chunk : ResourceChunk) :
+	needed_cost.UpdateResourceCost(chunk.chunk_resource, -1)
+	pending_cost.UpdateResourceCost(chunk.chunk_resource, 1)
+	
 
 
 func TryTakeDelivery(chunk : ResourceChunk) :
+	pending_cost.UpdateResourceCost(chunk.chunk_resource, -1)
+	delivered_cost.UpdateResourceCost(chunk.chunk_resource, 1)
+	
 	held_delivery_chunks[chunk] = chunk.chunk_resource
+	
 	chunk.held = false
 	chunk.stored = true
 	chunk.for_delivery = true
@@ -54,11 +73,11 @@ func TakeHit(damage_value : float) :
 		BuildingDie()
 
 func SwapToBuilt() :
-	construction_mesh.visible = false
-	construction_collider.set_deferred("disabled", true)
+	foundation_mesh.visible = false
+	foundation_collider.set_deferred("disabled", true)
 	
-	finished_mesh.visible = true
-	finished_collider.set_differed("disabled", false)
+	building_mesh.visible = true
+	building_collider.set_differed("disabled", false)
 
 func BuildingDie() :
 	pass
