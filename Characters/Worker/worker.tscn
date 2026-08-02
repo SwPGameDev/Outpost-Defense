@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://bd8w8jdj7oshx"]
 
 [ext_resource type="Script" uid="uid://b13jkdbqf2cum" path="res://Characters/Worker/worker_behavior.gd" id="1_8w0bo"]
-[ext_resource type="Script" uid="uid://b3gdmc78qhxsm" path="res://Characters/unit_combat_behavior.gd" id="2_u1olj"]
+[ext_resource type="Script" uid="uid://dfnsfraktr76l" path="res://Characters/Worker/worker_idle.gd" id="3_dedac"]
+[ext_resource type="Script" uid="uid://sg6nkjw72qxv" path="res://Characters/Worker/worker_controller.gd" id="3_pweo7"]
+[ext_resource type="Script" uid="uid://bnlv2snskkee3" path="res://Characters/Worker/worker_gather.gd" id="5_dg7hk"]
+[ext_resource type="Script" uid="uid://cml7y8kjrntj7" path="res://Characters/Worker/worker_logistics.gd" id="5_swb2q"]
+[ext_resource type="Script" uid="uid://bicp54qstfpyo" path="res://Characters/Worker/worker_build.gd" id="6_cknec"]
+[ext_resource type="Script" uid="uid://j1qu6of2vdj3" path="res://Characters/Worker/worker_repair.gd" id="7_g65gf"]
+[ext_resource type="Script" uid="uid://c7kgpissv66b8" path="res://Characters/Worker/worker_combat.gd" id="7_vjrp0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8w0bo"]
 friction = 0.1
@@ -14,7 +20,7 @@ albedo_color = Color(4.813075e-08, 0.427371, 0.30050135, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u1olj"]
 
-[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent", "hold_pos", "combat") groups=["Worker"]]
+[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent", "hold_pos") groups=["Worker"]]
 collision_layer = 4
 collision_mask = 31
 axis_lock_angular_x = true
@@ -23,10 +29,15 @@ physics_material_override = SubResource("PhysicsMaterial_8w0bo")
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_8w0bo")
-nav_agent = NodePath("NavigationAgent3D")
+debug_enabled = null
+move_speed = null
+stopping_dist = null
 worker_range = 2.0
+work_cooldown = null
+work_amount = null
+nav_agent = NodePath("NavigationAgent3D")
 hold_pos = NodePath("HoldPoint")
-combat = NodePath("CombatBehavior")
+combat = null
 metadata/_custom_type_script = "uid://b13jkdbqf2cum"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=759157175]
@@ -47,8 +58,31 @@ debug_enabled = true
 [node name="HoldPoint" type="Node3D" parent="." unique_id=1463381787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
-[node name="CombatBehavior" type="Node" parent="." unique_id=535685829 node_paths=PackedStringArray("unit_root")]
-script = ExtResource("2_u1olj")
-unit_root = NodePath("..")
+[node name="WorkerState" type="Node" parent="." unique_id=2104614229]
+script = ExtResource("3_pweo7")
+metadata/_custom_type_script = "uid://sg6nkjw72qxv"
+
+[node name="Idle" type="Node" parent="WorkerState" unique_id=348406687]
+script = ExtResource("3_dedac")
+metadata/_custom_type_script = "uid://dfnsfraktr76l"
+
+[node name="Gather" type="Node" parent="WorkerState" unique_id=1711217005]
+script = ExtResource("5_dg7hk")
+metadata/_custom_type_script = "uid://bnlv2snskkee3"
+
+[node name="Logistics" type="Node" parent="WorkerState" unique_id=979415255]
+script = ExtResource("5_swb2q")
+metadata/_custom_type_script = "uid://cml7y8kjrntj7"
+
+[node name="Build" type="Node" parent="WorkerState" unique_id=1398031289]
+script = ExtResource("6_cknec")
+metadata/_custom_type_script = "uid://bicp54qstfpyo"
+
+[node name="Repair" type="Node" parent="WorkerState" unique_id=396451373]
+script = ExtResource("7_g65gf")
+metadata/_custom_type_script = "uid://j1qu6of2vdj3"
+
+[node name="Combat" type="Node" parent="WorkerState" unique_id=637022556]
+script = ExtResource("7_vjrp0")
 max_hp = 12.0
-metadata/_custom_type_script = "uid://b3gdmc78qhxsm"
+metadata/_custom_type_script = "uid://c7kgpissv66b8"

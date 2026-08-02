@@ -4,6 +4,8 @@ class_name ResourceChunk
 @export var chunk_resource : ResourceManager.ResourceType
 @export var chunk_value : float
 
+var worker_holding : Worker
+
 var held : bool = false
 var stored : bool = false
 var targeted : bool = false

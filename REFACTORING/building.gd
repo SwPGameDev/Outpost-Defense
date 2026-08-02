@@ -9,6 +9,8 @@ class_name Building
 
 @export var max_hp : float
 var current_hp : float
+
+var worker_held_pending_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceType] = {}
 var held_delivery_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceType] = {}
 
 @export var total_work_needed : float = 5
@@ -20,20 +22,25 @@ var building_complete : bool = false
 @export var building_collider : CollisionShape3D
 @export var building_mesh : Node3D
 
+@export var chunk_in_out : Node3D
+
 func _ready() -> void:
 	current_hp = max_hp
 	
 	needed_cost = resource_cost.duplicate()
 
 func ResetCosts() :
-	needed_cost = ResourceCost.new()
+	needed_cost = resource_cost.duplicate()
 	pending_cost = ResourceCost.new()
 	delivered_cost = ResourceCost.new()
 
 func UpdatePending(chunk : ResourceChunk) :
+	worker_held_pending_chunks[chunk] = chunk.chunk_resource
+	
 	needed_cost.UpdateResourceCost(chunk.chunk_resource, -1)
 	pending_cost.UpdateResourceCost(chunk.chunk_resource, 1)
 	
+
 
 
 func TryTakeDelivery(chunk : ResourceChunk) :
@@ -50,6 +57,22 @@ func TryTakeDelivery(chunk : ResourceChunk) :
 	chunk.reparent(self)
 	chunk.process_mode = Node.PROCESS_MODE_DISABLED
 
+func DropAllDeliveryChunks() :
+	ResetCosts()
+	
+	var spawn_y_offset : float = 0
+	
+	for chunk : ResourceChunk in held_delivery_chunks :
+		chunk.held = false
+		chunk.stored = false
+		chunk.for_delivery = false
+		chunk.visible = true
+		chunk.global_position = chunk_in_out.global_position
+		chunk.global_position.y += spawn_y_offset
+		spawn_y_offset += 0.5
+		chunk.reparent(get_tree().root)
+		chunk.process_mode = Node.PROCESS_MODE_INHERIT
+	
 
 func RequestRecieved() :
 	print("RECIEVED")
