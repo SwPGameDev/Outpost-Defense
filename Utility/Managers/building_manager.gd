@@ -1,12 +1,13 @@
 extends Node
 
 @export var debug_indicators : bool = true
-var level_root : Node3D
 var building_parent : Node3D
 
 var in_build_mode : bool = false
 var mouse_pos : Vector3
 var build_pos : Vector3
+
+@export_flags_3d_physics var ground_only_collision_mask
 
 var build_node : Node3D
 var rotation_amount : float = 90
@@ -36,15 +37,12 @@ var selected_building : PackedScene
 var grid_size : float = 1
 
 
-enum BuildingType {House, Farm, Townhall, Warehouse}
+enum BuildingType {House, Farm, Townhall, Storage, Tower}
 
 var BuildingDict : Dictionary[Building, BuildingType] = {}
-var BuildingRequests : Dictionary[Building, RequestManager.Resource_Request]
+var BuildingRequests : Dictionary[Building, ResourceCost]
 
 func _ready() -> void:
-	level_root = get_tree().root.find_child("PlayerTestGym", false, false)
-	if level_root != null :
-		building_parent = level_root.buildings_parent
 	
 	selector_index = 0
 	selected_building = building_scenes[selector_index]
@@ -87,7 +85,7 @@ func _process(_delta: float) -> void:
 			build_node.rotate_object_local(Vector3.UP, -deg_to_rad(rotation_amount))
 			build_indicator.rotation = build_node.rotation
 		
-		var mouse_ray_results : Dictionary = Utility.MouseViewPortRayCast(1000, level_root.ground_only_collision_mask)
+		var mouse_ray_results : Dictionary = Utility.MouseViewPortRayCast(1000, ground_only_collision_mask)
 		if not mouse_ray_results.is_empty() :
 			mouse_pos = mouse_ray_results.position
 			
@@ -110,11 +108,8 @@ func TryPlaceFoundation(building_scene : PackedScene, position : Vector3) :
 	new_building.rotation = build_node.rotation
 	new_building.reparent(building_parent)
 
-func CreateBuildingRequest(building : Building, cost : RequestManager.Resource_Cost) :
-	var new_request : RequestManager.Resource_Request = RequestManager.Resource_Request.new()
-	new_request = RequestManager.CreateRequest(building, cost)
-	
-	BuildingRequests[building] = new_request
+func TrackBuildingRequest(building : Building, cost : ResourceCost) :
+	BuildingRequests[building] = cost
 
 func TrackBuilding(building : Building, building_type : BuildingType) :
 	BuildingDict[building] = building_type

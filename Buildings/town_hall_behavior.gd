@@ -10,24 +10,19 @@ class_name TownHall
 @export var worker_train_time : float = 2
 var train_timer : float = 0
 var currently_training : bool = false
-var worker_cost : RequestManager.Resource_Cost = RequestManager.CreateResourceCost(5, 5, 0, 0, 0, 0)
-#@export var worker_cost : RequestManager.Resource_Cost ### TODO make ResourceCost a Resource
+@export var worker_cost : ResourceCost
 var worker_scene : PackedScene = preload("res://Characters/Worker/worker.tscn")
 
 var request_active : bool = false
 
 @export_group("Spawning")
 @export var spawn_point : Node3D
-@export var level_root : Node3D
 @export var worker_parent : Node3D
 
 @export_group("Storage")
 @export var stored_chunks : Array[ResourceChunk]
 @export var max_chunk_capacity : int = 20
 var current_storage : int = 0
-
-func _ready() -> void:
-	TryRequestWorkerResources()
 
 func _process(delta: float) -> void:
 	if debug_enabled :
@@ -48,22 +43,17 @@ func _process(delta: float) -> void:
 		if train_timer > worker_train_time :
 			train_timer = 0
 			currently_training = false
-			SpawnWorker(spawn_point.global_position, worker_parent, level_root)
-
-func TryRequestWorkerResources() :
-	RequestManager.CreateRequest(self, worker_cost)
 
 func TryTrainWorker() :
 	if not currently_training :
 		currently_training = true
 
-func SpawnWorker(pos : Vector3, parent : Node3D, root : Node3D) :
+func SpawnWorker(pos : Vector3) :
 	var new_worker : Worker = worker_scene.instantiate()
 	add_child(new_worker)
 	new_worker.name = "Worker" + str(get_tree().get_node_count_in_group("Worker"))
 	new_worker.global_position = pos
-	new_worker.root_level_node = root
-	new_worker.reparent(parent)
+	new_worker.reparent(get_tree().root)
 
 func RequestRecieved():
 	super()

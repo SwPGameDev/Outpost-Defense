@@ -4,61 +4,102 @@ class_name WorkerLogistics
 
 @export var worker : Worker
 
+@export_group("Chunk")
+@export var hold_pos : Node3D
+var held_chunk : ResourceChunk
+@export var root_level_node : Node3D
+
 func ProcessTick(_delta: float) -> void:
 	if held_chunk == null :
 		# If request exists, look for the closest chunk
-		
-		if outstanding_requests :
-			target = ResourceManager.GetClosestResourceChunk(
-				global_position,
-				ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)], #resource_to_find
-				true,
-				false)
-			if target == null : ## Can't find chunks of type, need to grab something else
-				pass
-		else :
-			target = ResourceManager.GetClosestResourceChunk(
-				global_position,
-				ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)],
-				true,
-				true)
-		
-		if target != null :
-			target.targeted = true
-			find_new_target = false
-		else :
-			find_new_target = true
-	else :
-		# We are holding a chunk and need to decide where it goes
-		if RequestManager.existing_requests.size() > 0 :
-			var request : RequestManager.Resource_Request = RequestManager.GetClosestRequest(global_position, held_chunk.chunk_resource)
-			if request != null :
-				resource_request = request
-				target = request.source_request
-				RequestManager.UpdateMissingDict(request, held_chunk.chunk_resource, -1)
-				RequestManager.UpdateMovingDict(request, held_chunk.chunk_resource, 1)
-			else :
-				resource_request = null
-				target = ResourceManager.GetClosestResourceStorage(self.global_position)
-		else :
-			target = ResourceManager.GetClosestResourceStorage(self.global_position)
-
-
-
-
-
-	if in_range and held_chunk == null :
-		PickupChunk(target)
-	elif in_range and resource_request != null and held_chunk != null :
-		if target is Building :
-			DeliverChunk(target, held_chunk, resource_request)
-	elif in_range and held_chunk != null :
-		if target is ResourceStorage :
-			target.StoreChunk(held_chunk, held_chunk.chunk_resource)
-			held_chunk = null
-			target = null
-			in_range = false
-			find_new_target = true
+		pass
+		#if outstanding_requests :
+			#target = ResourceManager.GetClosestResourceChunk(
+				#global_position,
+				#ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)], #resource_to_find
+				#true,
+				#false)
+			#if target == null : ## Can't find chunks of type, need to grab something else
+				#pass
+		#else :
+			#target = ResourceManager.GetClosestResourceChunk(
+				#global_position,
+				#ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)],
+				#true,
+				#true)
+		#
+		#if target != null :
+			#target.targeted = true
+			#find_new_target = false
+		#else :
+			#find_new_target = true
+	#else :
+		## We are holding a chunk and need to decide where it goes
+		#if RequestManager.existing_requests.size() > 0 :
+			#var request : RequestManager.Resource_Request = RequestManager.GetClosestRequest(global_position, held_chunk.chunk_resource)
+			#if request != null :
+				#resource_request = request
+				#target = request.source_request
+				#RequestManager.UpdateMissingDict(request, held_chunk.chunk_resource, -1)
+				#RequestManager.UpdateMovingDict(request, held_chunk.chunk_resource, 1)
+			#else :
+				#resource_request = null
+				#target = ResourceManager.GetClosestResourceStorage(self.global_position)
+		#else :
+			#target = ResourceManager.GetClosestResourceStorage(self.global_position)
+#
+#
+#
+#
+#
+	#if in_range and held_chunk == null :
+		#PickupChunk(target)
+	#elif in_range and resource_request != null and held_chunk != null :
+		#if target is Building :
+			#DeliverChunk(target, held_chunk, resource_request)
+	#elif in_range and held_chunk != null :
+		#if target is ResourceStorage :
+			#target.StoreChunk(held_chunk, held_chunk.chunk_resource)
+			#held_chunk = null
+			#target = null
+			#in_range = false
+			#find_new_target = true
+#
+#
+#
+#func PickupChunk(chunk : ResourceChunk) :
+	#target = null
+	#in_range = false
+	#chunk.held = true
+	#chunk.worker_holding = self
+	#chunk.global_position = hold_pos.global_position
+	#chunk.process_mode = Node.PROCESS_MODE_DISABLED
+	#chunk.reparent(hold_pos)
+	#held_chunk = chunk
+	#
+	#find_new_target = true
+#
+#func DropChunk(chunk : ResourceChunk) :
+	#target = null
+	#in_range = false
+	#chunk.held = false
+	#chunk.worker_holding = null
+	#chunk.process_mode = Node.PROCESS_MODE_INHERIT
+	#chunk.targeted = false
+	#chunk.reparent(root_level_node)
+	#held_chunk = null
+	#
+	#find_new_target = true
+#
+#func DeliverChunk(building : Building, chunk : ResourceChunk) :
+	#building.TryTakeDelivery(held_chunk)
+	#
+	#target = null
+	#in_range = false
+	#chunk.worker_holding = null
+	#held_chunk = null
+	#
+	#find_new_target = true
 
 
 

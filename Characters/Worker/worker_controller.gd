@@ -32,3 +32,13 @@ func _process(delta: float) -> void:
 			
 		BehaviorState.Combat :
 			combat.ProcessTick(delta)
+
+
+
+
+
+# Enter state
+## Try to find target
+
+# Exit state
+## Clear target

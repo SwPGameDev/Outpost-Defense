@@ -5,4 +5,4 @@ func _ready() -> void:
 
 func OnPressed(id : int) :
 	for worker : Worker in get_tree().get_nodes_in_group("Worker") :
-		worker.SetJob(Worker.JobType.values()[id])
+		worker.SetWorkerState(WorkerController.BehaviorState.values()[id])

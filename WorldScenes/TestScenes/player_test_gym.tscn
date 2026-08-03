@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bxi3u5ym0oqeo"]
 
-[ext_resource type="Script" uid="uid://baxoelemuy6r7" path="res://WorldScenes/TestScenes/level_root.gd" id="1_1miuy"]
 [ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_5kqye"]
 [ext_resource type="PackedScene" uid="uid://d1dcmef28wkuo" path="res://Characters/Player/player.tscn" id="2_1miuy"]
 [ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="4_1miuy"]
@@ -10,15 +9,7 @@ vertices = PackedVector3Array(-24.5, 0.70000005, -24.5, -24.5, 0.70000005, 24.5,
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 cell_height = 0.1
 
-[node name="PlayerTestGym" type="Node3D" unique_id=94953513 node_paths=PackedStringArray("ground", "buildings_parent", "resource_nodes_parent", "resource_chunks_parent", "workers_parent", "player", "command_tent")]
-script = ExtResource("1_1miuy")
-ground = NodePath("NavigationRegion3D/Ground")
-buildings_parent = NodePath("blarg")
-resource_nodes_parent = NodePath("blarg")
-resource_chunks_parent = NodePath("blarg")
-workers_parent = NodePath("blarg")
-player = NodePath("Player")
-command_tent = NodePath("blarg")
+[node name="PlayerTestGym" type="Node3D" unique_id=94953513]
 
 [node name="blarg" type="Node3D" parent="." unique_id=483917470]
 

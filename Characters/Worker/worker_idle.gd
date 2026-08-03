@@ -2,11 +2,7 @@
 extends Node
 class_name WorkerIdle
 
-
 @export var worker : Worker
-
-
-var find_new_target : bool = false
 
 @export var idle_wait_max : float = 3
 @export var idle_wait_min : float = 0.5
@@ -20,8 +16,8 @@ var idle_wandering : bool = false
 
 
 func ProcessTick(_delta: float) -> void:
-	if find_new_target :
-		find_new_target = false
+	if worker.find_new_target :
+		worker.find_new_target = false
 		idle_wait_cooldown = randf_range(idle_wait_min, idle_wait_max)
 		idle_wait_timer = 0
 		wander_distance = randf_range(idle_wander_distance_min, idle_wander_distance_max)
@@ -33,8 +29,6 @@ func ProcessTick(_delta: float) -> void:
 		var random_pos : Vector3 = worker.global_position + (rand_dir * wander_distance)
 		worker.SetDestination(worker.GetDestFromTarget(random_pos, 0))
 	
-	
-	
 	if idle_waiting :
 		idle_wait_timer += _delta
 		if idle_wait_timer > idle_wait_cooldown :
@@ -44,4 +38,4 @@ func ProcessTick(_delta: float) -> void:
 	elif idle_wandering :
 		if worker.nav_agent.is_navigation_finished() :
 			idle_wandering = false
-			find_new_target = true
+			worker.find_new_target = true

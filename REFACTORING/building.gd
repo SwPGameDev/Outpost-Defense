@@ -13,6 +13,8 @@ var current_hp : float
 var worker_held_pending_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceType] = {}
 var held_delivery_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceType] = {}
 
+@export var start_finished : bool = false
+
 @export var total_work_needed : float = 5
 var current_work : float = 0
 var building_complete : bool = false
@@ -27,7 +29,10 @@ var building_complete : bool = false
 func _ready() -> void:
 	current_hp = max_hp
 	
-	needed_cost = resource_cost.duplicate()
+	if start_finished :
+		pass
+	else :
+		needed_cost = resource_cost.duplicate()
 
 func ResetCosts() :
 	needed_cost = resource_cost.duplicate()
@@ -76,6 +81,8 @@ func DropAllDeliveryChunks() :
 
 func RequestRecieved() :
 	print("RECIEVED")
+	# maybe make abstract
+	pass
 
 func TakeWork(work_value : float) :
 	current_work += work_value

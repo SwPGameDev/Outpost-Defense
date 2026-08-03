@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceCost" format=3 uid="uid://belj2hpx0pswu"]
+
+[ext_resource type="Script" uid="uid://c5f8bu6drh3tl" path="res://REFACTORING/resource_cost.gd" id="1_nbccr"]
+
+[resource]
+script = ExtResource("1_nbccr")
+food_cost = 5
+gold_cost = 5
+metadata/_custom_type_script = "uid://c5f8bu6drh3tl"

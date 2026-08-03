@@ -154,18 +154,19 @@ func GetClosestColObj(results_array : Array[Dictionary], pos : Vector3) -> Node3
 
 func UpdateSelectWorkerUI() :
 	var name_string : String = "Name: " + str(_worker.name)
-	var job_string : String = str("\n") + "Job: " + str(Worker.JobType.keys()[_worker.current_job])
+	var job_string : String = str("\n") + "State: " + str(WorkerController.BehaviorState.keys()[_worker.worker_controller.current_state])
 	var target_string : String = str("\n") + "Target: NULL"
 	if _worker.target != null :
 		target_string = str("\n") + "Target: " + str(_worker.target.name)
-	var request_string : String = str("\n") + "Request Source: NULL"
-	if _worker.resource_request != null :
-		request_string = str("\n") + "Request Source: " + str(_worker.resource_request.source_request.name)
-	var resource_prio_string : String = str("\n") + "Resource Priority: NULL"
-	if _worker.resource_priority != null :
-		resource_prio_string = str("\n") + "Resource Priority: " + str(ResourceManager.ResourceType.keys()[_worker.resource_priority])
+	#var request_string : String = str("\n") + "Request Source: NULL"
+	#if _worker.resource_request != null :
+		#request_string = str("\n") + "Request Source: " + str(_worker.resource_request.source_request.name)
+	#var resource_prio_string : String = str("\n") + "Resource Priority: NULL"
+	#if _worker.resource_priority != null :
+		#resource_prio_string = str("\n") + "Resource Priority: " + str(ResourceManager.ResourceType.keys()[_worker.resource_priority])
 	
-	worker_info_label.text = name_string + job_string + target_string + request_string + resource_prio_string
+	#worker_info_label.text = name_string + job_string + target_string + request_string + resource_prio_string
+	worker_info_label.text = name_string + job_string + target_string
 
 #Name: --
 #Type: --
@@ -221,7 +222,7 @@ func UpdateResourceUI(label : Label, selected : Variant) :
 
 func MoveWorkerSelectUI(con : Control, worker : Worker, offset : Vector2) :
 	print("CON: " + str(con) + " | Worker: " + str(worker) + " | Offset: " + str(offset))
-	option_button.selected = worker.current_job
+	option_button.selected = worker.worker_controller.current_state
 	option_button.get_popup().get_window().visible = false
 	MoveUI(con, worker, offset)
 
@@ -239,7 +240,7 @@ func MoveUI(con : Control, target : Node3D, offset : Vector2) :
 func _on_option_button_item_selected(index: int) -> void  :
 	if selected_thing is Worker :
 		var worker : Worker = selected_thing 
-		worker.SetJob(index)
+		worker.SetWorkerState(index)
 	#HideSelectUI(select_ui)
 
 

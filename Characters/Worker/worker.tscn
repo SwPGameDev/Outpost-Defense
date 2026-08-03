@@ -20,30 +20,29 @@ albedo_color = Color(4.813075e-08, 0.427371, 0.30050135, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u1olj"]
 
-[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent", "hold_pos") groups=["Worker"]]
+[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("worker_controller", "nav_agent", "mesh") groups=["Worker"]]
 collision_layer = 4
 collision_mask = 31
 axis_lock_angular_x = true
+axis_lock_angular_y = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_8w0bo")
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_8w0bo")
-debug_enabled = null
-move_speed = null
-stopping_dist = null
-worker_range = 2.0
-work_cooldown = null
-work_amount = null
+worker_controller = NodePath("WorkerController")
+move_speed = 2.5
 nav_agent = NodePath("NavigationAgent3D")
-hold_pos = NodePath("HoldPoint")
-combat = null
+mesh = NodePath("BodyMesh")
+worker_range = 2.0
 metadata/_custom_type_script = "uid://b13jkdbqf2cum"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=759157175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_r51mh")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=1585266481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_8w0bo")
 mesh = SubResource("CapsuleMesh_u1olj")
 
@@ -51,38 +50,56 @@ mesh = SubResource("CapsuleMesh_u1olj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, 0.3)
 size = Vector3(0.8, 0.4, 0.4)
 
+[node name="HoldPoint" type="Node3D" parent="BodyMesh" unique_id=1463381787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1425908841]
 avoidance_enabled = true
 debug_enabled = true
 
-[node name="HoldPoint" type="Node3D" parent="." unique_id=1463381787]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-
-[node name="WorkerState" type="Node" parent="." unique_id=2104614229]
+[node name="WorkerController" type="Node" parent="." unique_id=2104614229 node_paths=PackedStringArray("worker", "idle", "gather", "logistics", "build", "repair", "combat")]
 script = ExtResource("3_pweo7")
+worker = NodePath("..")
+idle = NodePath("Idle")
+gather = NodePath("Gather")
+logistics = NodePath("Logistics")
+build = NodePath("Build")
+repair = NodePath("Repair")
+combat = NodePath("Combat")
 metadata/_custom_type_script = "uid://sg6nkjw72qxv"
 
-[node name="Idle" type="Node" parent="WorkerState" unique_id=348406687]
+[node name="Idle" type="Node" parent="WorkerController" unique_id=348406687 node_paths=PackedStringArray("worker")]
 script = ExtResource("3_dedac")
+worker = NodePath("../..")
+idle_wait_max = 3.5
+idle_wait_min = 1.0
+idle_wander_distance_max = 5.0
+idle_wander_distance_min = -5.0
 metadata/_custom_type_script = "uid://dfnsfraktr76l"
 
-[node name="Gather" type="Node" parent="WorkerState" unique_id=1711217005]
+[node name="Gather" type="Node" parent="WorkerController" unique_id=1711217005 node_paths=PackedStringArray("worker")]
 script = ExtResource("5_dg7hk")
+worker = NodePath("../..")
 metadata/_custom_type_script = "uid://bnlv2snskkee3"
 
-[node name="Logistics" type="Node" parent="WorkerState" unique_id=979415255]
+[node name="Logistics" type="Node" parent="WorkerController" unique_id=979415255 node_paths=PackedStringArray("worker", "hold_pos")]
 script = ExtResource("5_swb2q")
+worker = NodePath("../..")
+hold_pos = NodePath("../../BodyMesh/HoldPoint")
 metadata/_custom_type_script = "uid://cml7y8kjrntj7"
 
-[node name="Build" type="Node" parent="WorkerState" unique_id=1398031289]
+[node name="Build" type="Node" parent="WorkerController" unique_id=1398031289 node_paths=PackedStringArray("worker")]
 script = ExtResource("6_cknec")
+worker = NodePath("../..")
 metadata/_custom_type_script = "uid://bicp54qstfpyo"
 
-[node name="Repair" type="Node" parent="WorkerState" unique_id=396451373]
+[node name="Repair" type="Node" parent="WorkerController" unique_id=396451373 node_paths=PackedStringArray("worker")]
 script = ExtResource("7_g65gf")
+worker = NodePath("../..")
 metadata/_custom_type_script = "uid://j1qu6of2vdj3"
 
-[node name="Combat" type="Node" parent="WorkerState" unique_id=637022556]
+[node name="Combat" type="Node" parent="WorkerController" unique_id=637022556 node_paths=PackedStringArray("worker")]
 script = ExtResource("7_vjrp0")
+worker = NodePath("../..")
 max_hp = 12.0
 metadata/_custom_type_script = "uid://c7kgpissv66b8"
