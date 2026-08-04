@@ -19,9 +19,14 @@ func ProcessTick(_delta: float) -> void:
 			worker.global_position,
 			ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)])
 		
-		####### Check range here
-		### Distance to node
-		### Raycast
+	else :
+		var distance : float = worker.global_position.distance_to(worker.target.global_position)
+		if distance <= work_range :
+			work_in_range = true
+		else :
+			work_in_range = false
+		
+		
 		
 		if work_in_range :
 			if work_timer < work_cooldown :

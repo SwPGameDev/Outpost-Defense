@@ -22,8 +22,6 @@ class_name Worker
 @export var destination : Vector3
 var distance_to_target : float
 @export var stopping_dist : float = 1
-@export var worker_range : float = 1.5
-var in_range : bool
 
 var check_dest_cd : float = 0.25
 var check_dest_timer : float = 0
