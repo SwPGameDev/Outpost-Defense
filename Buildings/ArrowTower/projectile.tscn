@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://k8ihp5wnkyu"]
 
-[ext_resource type="Script" uid="uid://becexeatedjc3" path="res://Buildings/projectile_behavior.gd" id="1_if1jr"]
+[ext_resource type="Script" uid="uid://becexeatedjc3" path="res://Buildings/ArrowTower/projectile_behavior.gd" id="1_if1jr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2ov11"]
 radius = 0.1

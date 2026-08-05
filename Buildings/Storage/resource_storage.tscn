@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://qqafnd46vouw"]
 
 [ext_resource type="Material" uid="uid://mw1v010iwte" path="res://Art/Materials/Buildings/StorageMat.tres" id="1_3yjov"]
-[ext_resource type="Script" uid="uid://d3rn5l0y41rbp" path="res://Buildings/resource_storage_behavior.gd" id="1_m6p3d"]
+[ext_resource type="Script" uid="uid://d3rn5l0y41rbp" path="res://Buildings/Storage/resource_storage_behavior.gd" id="1_m6p3d"]
+[ext_resource type="Resource" uid="uid://8fty4deh1cun" path="res://Buildings/Costs/Storage_Cost.tres" id="2_xkhqn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
 
@@ -9,6 +10,7 @@
 
 [node name="ResourceStorage" type="StaticBody3D" unique_id=1756685866]
 script = ExtResource("1_m6p3d")
+resource_cost = ExtResource("2_xkhqn")
 max_hp = 10.0
 metadata/_custom_type_script = "uid://d3rn5l0y41rbp"
 

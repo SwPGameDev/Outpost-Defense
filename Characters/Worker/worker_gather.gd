@@ -14,6 +14,7 @@ var work_in_range : bool = false
 
 func ProcessTick(_delta: float) -> void:
 	# TEMP ### At some point need to prioritize resource type instead of random
+	
 	if worker.target == null :
 		worker.target = ResourceManager.GetClosestResourceNode(
 			worker.global_position,

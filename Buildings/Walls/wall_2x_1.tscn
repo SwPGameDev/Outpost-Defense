@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://1i7cmxnllqnh"]
 
-[ext_resource type="Script" uid="uid://s7kslfw22s54" path="res://Buildings/wall_behavior.gd" id="1_frb1j"]
+[ext_resource type="Script" uid="uid://s7kslfw22s54" path="res://Buildings/Walls/wall_behavior.gd" id="1_frb1j"]
 [ext_resource type="Material" uid="uid://mw1v010iwte" path="res://Art/Materials/Buildings/StorageMat.tres" id="2_hlgo0"]
+[ext_resource type="Resource" uid="uid://cslodi2rrkq3u" path="res://Buildings/Costs/Wall_1x2_Cost.tres" id="2_sggmf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
 size = Vector3(2, 1, 1)
@@ -15,12 +16,9 @@ size = Vector3(2, 0.2, 1)
 [sub_resource type="CylinderMesh" id="CylinderMesh_6tgvo"]
 height = 0.2
 
-[node name="Wall_2x1" type="StaticBody3D" unique_id=1306297440 node_paths=PackedStringArray("construction_collider", "finished_collider", "construction_mesh", "finished_mesh") groups=["Wall"]]
+[node name="Wall_2x1" type="StaticBody3D" unique_id=1306297440 groups=["Wall"]]
 script = ExtResource("1_frb1j")
-construction_collider = NodePath("FoundationCol")
-finished_collider = NodePath("Collider")
-construction_mesh = NodePath("FoundationMesh")
-finished_mesh = NodePath("Mesh")
+resource_cost = ExtResource("2_sggmf")
 metadata/_custom_type_script = "uid://s7kslfw22s54"
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=952692116]

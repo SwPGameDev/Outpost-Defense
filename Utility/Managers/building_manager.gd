@@ -7,7 +7,7 @@ var in_build_mode : bool = false
 var mouse_pos : Vector3
 var build_pos : Vector3
 
-@export_flags_3d_physics var ground_only_collision_mask
+@export_flags_3d_physics var ground_only_collision_mask = 16
 
 var build_node : Node3D
 var rotation_amount : float = 90
@@ -15,12 +15,12 @@ var rotation_amount : float = 90
 var building_indicator_1x1 : PackedScene = preload("res://Buildings/TestBuildingIndicators/1x1Indicator.tscn")
 var build_indicator : Node3D = null
 
-var town_hall_scene : PackedScene = preload("res://Buildings/town_hall.tscn")
-var resource_storage_scene : PackedScene = preload("res://Buildings/resource_storage.tscn")
-var house_scene : PackedScene = preload("res://Buildings/house.tscn")
-var wall_1x1_scene : PackedScene = preload("res://Buildings/wall_1x_1.tscn")
-var wall_2x1_scene : PackedScene = preload("res://Buildings/wall_2x_1.tscn")
-var arrow_tower_scene : PackedScene = preload("res://Buildings/arrow_tower.tscn")
+var town_hall_scene : PackedScene = preload("res://Buildings/TownHall/town_hall.tscn")
+var resource_storage_scene : PackedScene = preload("res://Buildings/Storage/resource_storage.tscn")
+var house_scene : PackedScene = preload("res://Buildings/House/house.tscn")
+var wall_1x1_scene : PackedScene = preload("res://Buildings/Walls/wall_1x_1.tscn")
+var wall_2x1_scene : PackedScene = preload("res://Buildings/Walls/wall_2x_1.tscn")
+var arrow_tower_scene : PackedScene = preload("res://Buildings/ArrowTower/arrow_tower.tscn")
 
 var selector_index : int = 0
 var building_scenes : Array[PackedScene] = [

@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://dhrj77j07ax2b"]
 
-[ext_resource type="Script" uid="uid://bf8clcm31dtvd" path="res://Buildings/town_hall_behavior.gd" id="1_wtasv"]
-[ext_resource type="Texture2D" uid="uid://dukts3k5h4xii" path="res://Art/Textures/Prototype Textures/Orange/texture_05.png" id="2_bh1ve"]
-[ext_resource type="Script" uid="uid://chosn7xrxg10u" path="res://Utility/billboard.gd" id="3_ut8yo"]
+[ext_resource type="Script" uid="uid://bf8clcm31dtvd" path="res://Buildings/TownHall/town_hall_behavior.gd" id="1_bs434"]
+[ext_resource type="Resource" uid="uid://xqi0eykr2t4q" path="res://Buildings/Costs/TownHall_Cost.tres" id="2_bs434"]
+[ext_resource type="Texture2D" uid="uid://dukts3k5h4xii" path="res://Art/Textures/Prototype Textures/Orange/texture_05.png" id="3_xm388"]
+[ext_resource type="Script" uid="uid://chosn7xrxg10u" path="res://Utility/billboard.gd" id="4_gyc2f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
 size = Vector3(2, 2, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ov11"]
-albedo_texture = ExtResource("2_bh1ve")
+albedo_texture = ExtResource("3_xm388")
 
 [sub_resource type="BoxMesh" id="BoxMesh_yqpnd"]
 size = Vector3(2, 2, 2)
@@ -22,10 +23,11 @@ material = SubResource("StandardMaterial3D_hqb18")
 size = Vector2(5.5, 1.5)
 
 [node name="TownHall" type="StaticBody3D" unique_id=1589096867 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point") groups=["TownHall"]]
-script = ExtResource("1_wtasv")
+script = ExtResource("1_bs434")
 debug_label_parent = NodePath("LabelParent")
 debug_training_progress_label = NodePath("LabelParent/LabelBackground/ProgLabel")
 spawn_point = NodePath("SpawnPoint")
+resource_cost = ExtResource("2_bs434")
 max_hp = 25.0
 metadata/_custom_type_script = "uid://bf8clcm31dtvd"
 
@@ -52,7 +54,7 @@ use_3d_avoidance = true
 [node name="LabelParent" type="Node3D" parent="." unique_id=1269361831]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 visible = false
-script = ExtResource("3_ut8yo")
+script = ExtResource("4_gyc2f")
 
 [node name="LabelBackground" type="MeshInstance3D" parent="LabelParent" unique_id=28984860]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.00999999)

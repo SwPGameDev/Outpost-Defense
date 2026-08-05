@@ -33,6 +33,12 @@ func _ready() -> void:
 		pass
 	else :
 		needed_cost = resource_cost.duplicate()
+	
+	if resource_cost != null :
+		needed_cost = resource_cost.duplicate()
+	
+	
+	GetNeededCost()
 
 func ResetCosts() :
 	needed_cost = resource_cost.duplicate()
@@ -78,6 +84,15 @@ func DropAllDeliveryChunks() :
 		chunk.reparent(get_tree().root)
 		chunk.process_mode = Node.PROCESS_MODE_INHERIT
 	
+
+func GetNeededCost() -> Dictionary :
+	var rough : Dictionary = needed_cost.dict
+	var filtered : Dictionary = {}
+	for i : int in rough.size() :
+		if rough.values()[i] > 0 :
+			filtered[i] = rough.values()[i]
+	return filtered
+
 
 func RequestRecieved() :
 	print("RECIEVED")

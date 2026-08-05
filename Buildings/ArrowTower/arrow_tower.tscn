@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://oc864ldbog7c"]
 
-[ext_resource type="Script" uid="uid://ctdyoxwy0450r" path="res://Buildings/arrow_tower_behavior.gd" id="1_lw1lr"]
-[ext_resource type="PackedScene" uid="uid://k8ihp5wnkyu" path="res://Buildings/projectile.tscn" id="2_fmtrp"]
+[ext_resource type="Script" uid="uid://ctdyoxwy0450r" path="res://Buildings/ArrowTower/arrow_tower_behavior.gd" id="1_lw1lr"]
+[ext_resource type="PackedScene" uid="uid://k8ihp5wnkyu" path="res://Buildings/ArrowTower/projectile.tscn" id="2_fmtrp"]
+[ext_resource type="Resource" uid="uid://de37b4ivivbmq" path="res://Buildings/Costs/ArrowTower_Cost.tres" id="3_5uxot"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hjh8e"]
 albedo_color = Color(0.44815773, 0.28535783, 0.10042969, 1)
@@ -30,6 +31,7 @@ script = ExtResource("1_lw1lr")
 turret = NodePath("Turret")
 projectile_scene = ExtResource("2_fmtrp")
 projectile_spawn = NodePath("Turret/MeshInstance3D/MeshInstance3D/Muzzle")
+resource_cost = ExtResource("3_5uxot")
 metadata/_custom_type_script = "uid://uq2gqqdmvykw"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=184758886]

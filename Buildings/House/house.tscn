@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://c1aor2js14wpx"]
 
-[ext_resource type="Script" uid="uid://byt8fx1ki252y" path="res://Buildings/house_behavior.gd" id="1_2kccs"]
+[ext_resource type="Script" uid="uid://byt8fx1ki252y" path="res://Buildings/House/house_behavior.gd" id="1_2kccs"]
 [ext_resource type="Material" uid="uid://mw1v010iwte" path="res://Art/Materials/Buildings/StorageMat.tres" id="2_diyid"]
+[ext_resource type="Resource" uid="uid://dg4kboh1xtqlc" path="res://Buildings/Costs/House_Cost.tres" id="2_xbafe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_okdhw"]
 
@@ -13,12 +14,9 @@ size = Vector3(1, 0.25, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_yqpnd"]
 size = Vector3(1, 0.25, 1)
 
-[node name="House" type="StaticBody3D" unique_id=504254213 node_paths=PackedStringArray("construction_collider", "finished_collider", "construction_mesh", "finished_mesh") groups=["House"]]
+[node name="House" type="StaticBody3D" unique_id=504254213 groups=["House"]]
 script = ExtResource("1_2kccs")
-construction_collider = NodePath("Collider")
-finished_collider = NodePath("Collider")
-construction_mesh = NodePath("FoundationMesh")
-finished_mesh = NodePath("Mesh")
+resource_cost = ExtResource("2_xbafe")
 metadata/_custom_type_script = "uid://uq2gqqdmvykw"
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=518249991]
