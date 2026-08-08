@@ -34,7 +34,6 @@ worker_controller = NodePath("WorkerController")
 move_speed = 2.5
 nav_agent = NodePath("NavigationAgent3D")
 mesh = NodePath("BodyMesh")
-worker_range = 2.0
 metadata/_custom_type_script = "uid://b13jkdbqf2cum"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=759157175]
