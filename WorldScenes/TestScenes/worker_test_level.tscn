@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://dhrj77j07ax2b" path="res://Buildings/TownHall/town_hall.tscn" id="12_y4mkk"]
 [ext_resource type="PackedScene" uid="uid://4kw71ju57gmk" path="res://Resources/Chunks/food_chunk.tscn" id="14_vu4am"]
 [ext_resource type="PackedScene" uid="uid://qqafnd46vouw" path="res://Buildings/Storage/resource_storage.tscn" id="15_iagux"]
-[ext_resource type="Texture2D" uid="uid://xi2cdpd15dsx" path="res://Art/Textures/Prototype Textures/Dark/texture_09.png" id="16_wi14j"]
+[ext_resource type="Material" uid="uid://btb06rtj83r2p" path="res://Art/Materials/TestBlocker.tres" id="16_wi14j"]
 [ext_resource type="PackedScene" uid="uid://oc864ldbog7c" path="res://Buildings/ArrowTower/arrow_tower.tscn" id="23_vj1u5"]
 [ext_resource type="PackedScene" uid="uid://cfm5f5txwak2t" path="res://Characters/TestEnemy/enemy_unit.tscn" id="24_5a4cw"]
 [ext_resource type="PackedScene" uid="uid://bcmcn42pq1mne" path="res://Buildings/Walls/wall_1x_1.tscn" id="25_v1wvp"]
@@ -41,13 +41,6 @@ sky_material = SubResource("ProceduralSkyMaterial_vj1u5")
 background_mode = 2
 sky = SubResource("Sky_5a4cw")
 glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbmw0"]
-albedo_texture = ExtResource("16_wi14j")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
-uv1_offset = Vector3(0.25, 0.25, 0)
-uv1_triplanar = true
-texture_filter = 1
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3w2og"]
 vertices = PackedVector3Array(-2, 0.6000001, -9.5, -1.5, 0.6000001, -11.75, -2.5, 0.6000001, -12, -3.5, 0.6000001, -9, -0.75, 0.6000001, -15, -0.75, 0.6000001, -17, -2, 0.6000001, -17.25, -2.5, 0.6000001, -14.75, -15, 0.6000001, -5, -13, 0.6000001, -5, -49.5, 0.6000001, -5.25, -30.5, 0.6000001, -5.25, -30.5, 0.6000001, -7.25, -4.75, 0.6000001, -3.5, -3.25, 0.6000001, -3.5, -3, 0.6000001, -6.5, -3.5, 0.6000001, -7, -28.25, 0.6000001, -3.5, -15.5, 0.6000001, -3.5, -2, 0.6000001, -18.75, -5, 0.6000001, -3, -12.5, 0.6000001, -4.5, -28.5, 0.6000001, -7.5, -0.5, 0.6000001, -49.5, -49.5, 0.6000001, -49.5, -12.5, 0.6000001, -3, -0.5, 0.6000001, -19, 0.75, 0.6000001, -19, 1, 0.6000001, -17.5, 7.25, 0.6000001, -16, 8.75, 0.6000001, -16, 19, 0.6000001, -21.75, 20.25, 0.6000001, -22, 20.25, 0.6000001, -49.5, 9, 0.6000001, -15.5, 19, 0.6000001, -15.5, 21.25, 0.6000001, -21.75, 49.5, 0.6000001, -20.5, 49.5, 0.6000001, -49.5, 21.25, 0.6000001, -20.25, 21.25, 0.6000001, -13.25, 49.5, 0.6000001, -13, 0.75, 0.6000001, -17, 0.75, 0.6000001, -14.75, 0.75, 0.6000001, -12.25, 7, 0.6000001, -14.25, -0.5, 0.6000001, -9, 0.25, 0.6000001, -11.75, 10.5, 0.6000001, -9, 11.25, 0.6000001, -9.5, 8.5, 0.6000001, -14, -0.5, 0.6000001, -7.25, 10.5, 0.6000001, -7.25, 9, 0.6000001, -14.25, 13.5, 0.6000001, -8.75, 19.5, 0.6000001, -11.25, 19, 0.6000001, -11.5, 13, 0.6000001, -9.5, 13, 0.6000001, -6.5, 11.25, 0.6000001, -6.5, 11, 0.6000001, -2, 13.5, 0.6000001, -7, 11.25, 0.6000001, -0.5, 21.25, 0.6000001, -11.75, 20.75, 0.6000001, -11.25, 21, 0.6000001, 4.5, 21.5, 0.6000001, 6, 19.25, 0.6000001, 4.5, 49.5, 0.6000001, 6, -2.75, 0.6000001, -3.25, -1, 0.6000001, -6.5, 2.5, 0.6000001, 2, 4.5, 0.6000001, 2, 9, 0.6000001, -1.75, 5, 0.6000001, 2.75, 9.25, 0.6000001, 0.25, -2.75, 0.6000001, 3.5, 2, 0.6000001, 3.5, -49.5, 0.6000001, 1, -30.5, 0.6000001, 1, -12.75, 0.6000001, 5.25, -13.25, 0.6000001, -2, -15, 0.6000001, -2, -28.25, 0.6000001, 2.75, -29, 0.6000001, 3.25, -11.5, 0.6000001, 6, -11.25, 0.6000001, 5.5, -9.5, 0.6000001, 5.5, -9.25, 0.6000001, 6.5, -5, 0.6000001, 6.25, 6.5, 0.6000001, 17.5, 12, 0.6000001, 17.5, 12.25, 0.6000001, 16, 6, 0.6000001, 16.5, 5, 0.6000001, 4.5, 10.75, 0.6000001, 0.25, 13.75, 0.6000001, 16, 19.25, 0.6000001, 7.5, 18.5, 0.6000001, 7, 18.5, 0.6000001, 5, 4.5, 0.6000001, 16.5, 4.25, 0.6000001, 5, 14, 0.6000001, 16.5, -11.25, 0.6000001, 7.75, -4.75, 0.6000001, 7.25, -9.75, 0.6000001, 7.75, -30.5, 0.6000001, 3, -3.5, 0.6000001, 7.25, 3.5, 0.6000001, 19, 3.5, 0.6000001, 17.25, 5, 0.6000001, 49.5, 5, 0.6000001, 19.5, -49.5, 0.6000001, 49.5, 2.5, 0.6000001, 5, -2.75, 0.6000001, 6.75, 21, 0.6000001, 7.5, 14, 0.6000001, 17.75, 13, 0.6000001, 49.5, 49.5, 0.6000001, 49.5, 13, 0.6000001, 18.25, 6.5, 0.6000001, 19)
@@ -312,12 +305,12 @@ text = "Take Repair"
 [node name="HBoxContainer2" type="HBoxContainer" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer" unique_id=973258399]
 layout_mode = 2
 
-[node name="TakeWorkButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1959634711]
+[node name="FinishButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1959634711]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Finish Build"
 
-[node name="TakeHitButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1305860808]
+[node name="DestroyButton" type="Button" parent="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1305860808]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Destory Build"
@@ -368,10 +361,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 17.5)
 
 [node name="Buildings" type="Node3D" parent="." unique_id=1883383936]
 
-[node name="TownHall" parent="Buildings" unique_id=360267369 node_paths=PackedStringArray("worker_parent") instance=ExtResource("12_y4mkk")]
+[node name="TownHall" parent="Buildings" unique_id=360267369 instance=ExtResource("12_y4mkk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -13.5)
 worker_cost = ExtResource("11_wi14j")
-worker_parent = NodePath("../../Workers")
 start_finished = true
 
 [node name="ResourceStorage" parent="Buildings" unique_id=1888111638 instance=ExtResource("15_iagux")]
@@ -408,19 +400,19 @@ size = Vector3(100, 1, 100)
 material = ExtResource("1_bjxgj")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=916859123]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 1.75)
-size = Vector3(1, 2, 9.5)
-material = SubResource("StandardMaterial3D_kbmw0")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 1.5)
+size = Vector3(1, 2, 10)
+material = ExtResource("16_wi14j")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2022202483]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -16.75)
-size = Vector3(1, 2, 9.5)
-material = SubResource("StandardMaterial3D_kbmw0")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -16.5)
+size = Vector3(1, 2, 10)
+material = ExtResource("16_wi14j")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1101062425]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5, 1, -2.25)
-size = Vector3(1, 2, 9.5)
-material = SubResource("StandardMaterial3D_kbmw0")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 1, -2.5)
+size = Vector3(1, 2, 10)
+material = ExtResource("16_wi14j")
 
 [node name="ResourceNodes" type="Node3D" parent="." unique_id=2072295452]
 
@@ -515,3 +507,8 @@ debug_target = NodePath("../DebugTarget")
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/WorkerSpawnButton" to="TestUI/Control/ButtonRoot/WorkerSpawnButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/EnemySpawn" to="TestUI/Control/ButtonRoot/EnemySpawn" method="_on_pressed"]
 [connection signal="item_selected" from="TestUI/Control2/WorkerInfoUI/HBoxContainer/MarginContainer/OptionButton" to="TestUI/Control2/SelectDebugUI" method="_on_option_button_item_selected"]
+[connection signal="pressed" from="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer/TakeWorkButton" to="TestUI/Control2/SelectDebugUI" method="_on_take_work_button_pressed"]
+[connection signal="pressed" from="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer/TakeHitButton" to="TestUI/Control2/SelectDebugUI" method="_on_take_hit_button_pressed"]
+[connection signal="pressed" from="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer/TakeRepairButton" to="TestUI/Control2/SelectDebugUI" method="_on_take_repair_button_pressed"]
+[connection signal="pressed" from="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2/FinishButton" to="TestUI/Control2/SelectDebugUI" method="_on_finish_button_pressed"]
+[connection signal="pressed" from="TestUI/Control2/BuildingInfoUI/HBoxContainer/VBoxContainer/HBoxContainer2/DestroyButton" to="TestUI/Control2/SelectDebugUI" method="_on_destroy_button_pressed"]

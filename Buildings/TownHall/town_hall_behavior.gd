@@ -17,7 +17,7 @@ var request_active : bool = false
 
 @export_group("Spawning")
 @export var spawn_point : Node3D
-@export var worker_parent : Node3D
+#@export var worker_parent : Node3D
 
 @export_group("Storage")
 @export var stored_chunks : Array[ResourceChunk]

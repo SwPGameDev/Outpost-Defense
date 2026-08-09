@@ -105,10 +105,6 @@ func TakeWork(work_value : float) :
 		building_complete = true
 		CompleteBuilding()
 
-func CompleteBuilding() :
-	SwapToBuilt()
-	print("Finished")
-
 func TakeHit(damage_value : float) :
 	current_hp -= damage_value
 	
@@ -116,6 +112,20 @@ func TakeHit(damage_value : float) :
 	
 	if current_hp <= 0 :
 		BuildingDie()
+
+func TakeRepair(repair_value : float) :
+	if current_hp == max_hp :
+		return
+	else :
+		current_hp += repair_value
+		if current_hp > max_hp :
+			current_hp = max_hp
+
+
+func CompleteBuilding() :
+	SwapToBuilt()
+	print("Finished")
+
 
 func SwapToBuilt() :
 	foundation_mesh.visible = false
@@ -125,6 +135,7 @@ func SwapToBuilt() :
 	building_collider.set_differed("disabled", false)
 
 func BuildingDie() :
+	queue_free()
 	pass
 	# Need to figure out what needs to happen when a building dies
 	# Just goes into damaged state? Do destroyed walls disapear completly? Leave behind ruins?

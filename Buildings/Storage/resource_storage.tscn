@@ -8,6 +8,12 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ov11"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xkhqn"]
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6spmd"]
+height = 0.2
+
 [node name="ResourceStorage" type="StaticBody3D" unique_id=1756685866]
 script = ExtResource("1_m6p3d")
 resource_cost = ExtResource("2_xkhqn")
@@ -25,3 +31,11 @@ mesh = SubResource("BoxMesh_2ov11")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=1720892365]
 radius = 0.5
+
+[node name="FoundationCol" type="CollisionShape3D" parent="." unique_id=1300191670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+shape = SubResource("CylinderShape3D_xkhqn")
+
+[node name="FoundationMesh" type="MeshInstance3D" parent="." unique_id=743243793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("CylinderMesh_6spmd")

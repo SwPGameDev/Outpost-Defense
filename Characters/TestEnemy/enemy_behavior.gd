@@ -8,20 +8,31 @@ class_name EnemyUnit
 var check_dest_cd : float = 0.25
 var check_dest_timer : float = 0
 
+@export_group("Refernces")
+@export var nav_agent : NavigationAgent3D
+
+
 @export_group("Combat")
 @export var combat : Node
+
 
 @export_group("Movement")
 @export var movement : Node
 @export var destination : Vector3
 var distance_to_target : float
 @export var stopping_distance : float = 1
+@export var move_speed : float = 4
+@export var mesh : Node3D
+@export var look_target : Vector3
+@export var rotation_speed : float = TAU
+
 
 @export_group("Targeting")
 @export var target_range : float = 50
 var target : Node3D
 @export_flags_3d_physics var targeting_col_mask
 @export var ground : CollisionObject3D
+
 
 func _ready() -> void:
 	if debug_enabled :
@@ -39,13 +50,16 @@ func _process(delta: float) -> void:
 				movement.SetDestination(movement.GetDestFromTarget(target.global_position, stopping_distance))
 	else :
 		distance_to_target = 0
-		#FindTarget()
+		#TryFindTarget()
+	
+	
+	TryLook(delta)
 
 
 
-func FindTarget() -> Node3D :
+func TryFindTarget() -> Node3D :
 	var new_target : Node3D = null
-	var sphere_results : Array[Dictionary] = Utility.TrySphereCast(self.global_position, 50, 200, targeting_col_mask)
+	var sphere_results : Array[Dictionary] = Utility.TrySphereCast(self.global_position, target_range, 200, targeting_col_mask)
 	
 	
 	if sphere_results.size() > 0 :
@@ -81,6 +95,26 @@ func CheckResults(result : Dictionary) -> Variant :
 		thing = null
 	print("!!!THING!!!: " + str(thing))
 	return thing
+
+func TryLook(_delta : float) :
+	look_target = nav_agent.get_next_path_position() - global_position
+	look_target.y = global_position.y
+	if target != null :
+		
+		if look_target != Vector3.ZERO :
+			var rotation_target : Quaternion = Basis.looking_at(look_target, Vector3.UP, true).orthonormalized()
+			# Only y axis rotation go here
+			var new_rotation : Quaternion = mesh.basis.orthonormalized().slerp(rotation_target, _delta * rotation_speed)
+			
+			mesh.basis = new_rotation
+		
+	elif target == null and destination != Vector3.ZERO :
+		if look_target != Vector3.ZERO :
+			var rotation_target : Quaternion = Basis.looking_at(look_target, Vector3.UP, true).orthonormalized()
+			# Only y axis rotation go here
+			var new_rotation : Quaternion = mesh.basis.orthonormalized().slerp(rotation_target, _delta * rotation_speed)
+			
+			mesh.basis = new_rotation
 
 
 func SetTarget(new_target : Node3D) :

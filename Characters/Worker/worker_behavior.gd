@@ -60,7 +60,6 @@ func _process(delta: float) -> void:
 		
 	
 	TryLook(delta)
-	
 
 ### Movement and self righting
 func _physics_process(_delta: float) -> void:
@@ -83,6 +82,7 @@ func _physics_process(_delta: float) -> void:
 
 func TryLook(_delta : float) :
 	look_target = nav_agent.get_next_path_position() - global_position
+	look_target.y = global_position.y
 	if target != null :
 		
 		if look_target != Vector3.ZERO :

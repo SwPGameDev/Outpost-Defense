@@ -22,13 +22,27 @@ albedo_color = Color(0.018448738, 0.058960944, 0.06970161, 1)
 material = SubResource("StandardMaterial3D_hqb18")
 size = Vector2(5.5, 1.5)
 
-[node name="TownHall" type="StaticBody3D" unique_id=1589096867 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point") groups=["TownHall"]]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bs434"]
+height = 0.2
+radius = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q6gta"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.2
+
+[node name="TownHall" type="StaticBody3D" unique_id=1589096867 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point", "foundation_collider", "foundation_mesh", "building_collider", "building_mesh", "chunk_in_out") groups=["TownHall"]]
 script = ExtResource("1_bs434")
 debug_label_parent = NodePath("LabelParent")
 debug_training_progress_label = NodePath("LabelParent/LabelBackground/ProgLabel")
 spawn_point = NodePath("SpawnPoint")
 resource_cost = ExtResource("2_bs434")
 max_hp = 25.0
+foundation_collider = NodePath("FoundationCol")
+foundation_mesh = NodePath("FoundationMesh")
+building_collider = NodePath("CollisionShape3D")
+building_mesh = NodePath("MeshInstance3D")
+chunk_in_out = NodePath("SpawnPoint")
 metadata/_custom_type_script = "uid://bf8clcm31dtvd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1653768917]
@@ -71,3 +85,11 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 text = "Train Prog: 0.00/0.00"
 font_size = 100
 horizontal_alignment = 3
+
+[node name="FoundationCol" type="CollisionShape3D" parent="." unique_id=731362236]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+shape = SubResource("CylinderShape3D_bs434")
+
+[node name="FoundationMesh" type="MeshInstance3D" parent="." unique_id=1492738953]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("CylinderMesh_q6gta")

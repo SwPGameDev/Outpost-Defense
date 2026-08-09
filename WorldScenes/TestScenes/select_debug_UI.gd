@@ -24,7 +24,7 @@ var current_state : SelectionStates
 @export var ground : Node3D
 
 @export_group("Selected")
-enum Selectables {worker, resource_node, resource_chunk, building} ## worker, resourcenode, resourcechunk, building
+enum Selectables {worker, resource_node, resource_chunk, building, enemy}
 @export var cur_select : Selectables
 @export var selected_thing : Variant = null
 var _worker : Worker
@@ -132,6 +132,9 @@ func CheckResults(result : Dictionary) -> Variant :
 	elif result.collider is Building :
 		cur_select = Selectables.building
 		thing = result.collider
+	elif result.collider is EnemyUnit :
+		cur_select = Selectables.enemy
+		thing = result.collider
 	else :
 		# couldn't find
 		thing = null
@@ -226,6 +229,11 @@ func MoveWorkerSelectUI(con : Control, worker : Worker, offset : Vector2) :
 	option_button.get_popup().get_window().visible = false
 	MoveUI(con, worker, offset)
 
+
+### Unit UI
+
+
+
 func ShowUI(con : Control) :
 	con.visible = true
 
@@ -252,6 +260,41 @@ func _on_option_button_item_selected(index: int) -> void  :
 
 
 
+
+
+
+
+
+func _on_take_work_button_pressed() -> void:
+	if selected_thing is Building :
+		var building : Building = selected_thing
+		building.TakeWork(1)
+
+
+func _on_take_hit_button_pressed() -> void:
+	if selected_thing is Building :
+		var building : Building = selected_thing
+		building.TakeHit(1)
+
+
+func _on_take_repair_button_pressed() -> void:
+	if selected_thing is Building :
+		var building : Building = selected_thing
+		building.TakeRepair(1)
+
+
+func _on_finish_button_pressed() -> void:
+	if selected_thing is Building :
+		var building : Building = selected_thing
+		building.CompleteBuilding()
+
+
+func _on_destroy_button_pressed() -> void:
+	if selected_thing is Building :
+		var building : Building = selected_thing
+		building.BuildingDie()
+		selected_thing = null
+		HideUI(building_info_ui)
 
 
 # ._.
