@@ -129,10 +129,9 @@ func CompleteBuilding() :
 
 func SwapToBuilt() :
 	foundation_mesh.visible = false
-	foundation_collider.set_deferred("disabled", true)
-	
+	foundation_collider.call_deferred("set_disabled", true)
 	building_mesh.visible = true
-	building_collider.set_differed("disabled", false)
+	building_collider.call_deferred("set_disabled", false)
 
 func BuildingDie() :
 	queue_free()

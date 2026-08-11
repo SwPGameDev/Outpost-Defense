@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dhrj77j07ax2b"]
 
 [ext_resource type="Script" uid="uid://bf8clcm31dtvd" path="res://Buildings/TownHall/town_hall_behavior.gd" id="1_bs434"]
-[ext_resource type="Resource" uid="uid://xqi0eykr2t4q" path="res://Buildings/Costs/TownHall_Cost.tres" id="2_bs434"]
+[ext_resource type="Resource" uid="uid://xqi0eykr2t4q" path="res://Buildings/--Costs/TownHall_Cost.tres" id="2_bs434"]
 [ext_resource type="Texture2D" uid="uid://dukts3k5h4xii" path="res://Art/Textures/Prototype Textures/Orange/texture_05.png" id="3_xm388"]
 [ext_resource type="Script" uid="uid://chosn7xrxg10u" path="res://Utility/billboard.gd" id="4_gyc2f"]
 

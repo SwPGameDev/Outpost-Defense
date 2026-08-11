@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byt8fx1ki252y" path="res://Buildings/House/house_behavior.gd" id="1_2kccs"]
 [ext_resource type="Material" uid="uid://mw1v010iwte" path="res://Art/Materials/Buildings/StorageMat.tres" id="2_diyid"]
-[ext_resource type="Resource" uid="uid://dg4kboh1xtqlc" path="res://Buildings/Costs/House_Cost.tres" id="2_xbafe"]
+[ext_resource type="Resource" uid="uid://dg4kboh1xtqlc" path="res://Buildings/--Costs/House_Cost.tres" id="2_xbafe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_okdhw"]
 
@@ -14,9 +14,15 @@ size = Vector3(1, 0.25, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_yqpnd"]
 size = Vector3(1, 0.25, 1)
 
-[node name="House" type="StaticBody3D" unique_id=504254213 groups=["House"]]
+[node name="House" type="StaticBody3D" unique_id=504254213 node_paths=PackedStringArray("foundation_collider", "foundation_mesh", "building_collider", "building_mesh", "chunk_in_out") groups=["House"]]
 script = ExtResource("1_2kccs")
 resource_cost = ExtResource("2_xbafe")
+max_hp = 10.0
+foundation_collider = NodePath("FoundationCol")
+foundation_mesh = NodePath("FoundationMesh")
+building_collider = NodePath("Collider")
+building_mesh = NodePath("Mesh")
+chunk_in_out = NodePath("chunk")
 metadata/_custom_type_script = "uid://uq2gqqdmvykw"
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=518249991]
@@ -40,3 +46,6 @@ shape = SubResource("BoxShape3D_2ov11")
 [node name="FoundationMesh" type="MeshInstance3D" parent="." unique_id=657910898]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 mesh = SubResource("BoxMesh_yqpnd")
+
+[node name="chunk" type="Node3D" parent="." unique_id=1139989518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

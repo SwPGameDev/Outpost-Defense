@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bn70a3ut2ylgr"]
 
-[ext_resource type="Script" uid="uid://bgdo0uyqxiyyo" path="res://Buildings/TestBuildingIndicators/build_indicator.gd" id="1_2jnue"]
-[ext_resource type="Material" uid="uid://b48dkk0syrkbr" path="res://Buildings/TestBuildingIndicators/building_indicator_mat.tres" id="1_hupng"]
-[ext_resource type="Material" uid="uid://dr4jsyjtkjeip" path="res://Buildings/TestBuildingIndicators/build_fail_indicator_mat.tres" id="3_q0vbm"]
-[ext_resource type="Material" uid="uid://c665xsvomy7c6" path="res://Buildings/TestBuildingIndicators/build_success_indicator_mat.tres" id="4_1dru5"]
+[ext_resource type="Script" uid="uid://bgdo0uyqxiyyo" path="res://Buildings/-TestBuildingIndicators/build_indicator.gd" id="1_2jnue"]
+[ext_resource type="Material" uid="uid://b48dkk0syrkbr" path="res://Buildings/-TestBuildingIndicators/building_indicator_mat.tres" id="1_hupng"]
+[ext_resource type="Material" uid="uid://dr4jsyjtkjeip" path="res://Buildings/-TestBuildingIndicators/build_fail_indicator_mat.tres" id="3_q0vbm"]
+[ext_resource type="Material" uid="uid://c665xsvomy7c6" path="res://Buildings/-TestBuildingIndicators/build_success_indicator_mat.tres" id="4_1dru5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ov11"]
 material = ExtResource("1_hupng")

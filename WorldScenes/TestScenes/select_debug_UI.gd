@@ -230,7 +230,7 @@ func MoveWorkerSelectUI(con : Control, worker : Worker, offset : Vector2) :
 	MoveUI(con, worker, offset)
 
 
-### Unit UI
+##########Unit UI
 
 
 
@@ -246,7 +246,7 @@ func MoveUI(con : Control, target : Node3D, offset : Vector2) :
 	con.position += offset
 
 func _on_option_button_item_selected(index: int) -> void  :
-	if selected_thing is Worker :
+	if selected_thing != null and selected_thing is Worker :
 		var worker : Worker = selected_thing 
 		worker.SetWorkerState(index)
 	#HideSelectUI(select_ui)
@@ -266,31 +266,31 @@ func _on_option_button_item_selected(index: int) -> void  :
 
 
 func _on_take_work_button_pressed() -> void:
-	if selected_thing is Building :
+	if selected_thing != null and selected_thing is Building :
 		var building : Building = selected_thing
 		building.TakeWork(1)
 
 
 func _on_take_hit_button_pressed() -> void:
-	if selected_thing is Building :
+	if selected_thing != null and selected_thing is Building :
 		var building : Building = selected_thing
 		building.TakeHit(1)
 
 
 func _on_take_repair_button_pressed() -> void:
-	if selected_thing is Building :
+	if selected_thing != null and selected_thing is Building :
 		var building : Building = selected_thing
 		building.TakeRepair(1)
 
 
 func _on_finish_button_pressed() -> void:
-	if selected_thing is Building :
+	if selected_thing != null and selected_thing is Building :
 		var building : Building = selected_thing
 		building.CompleteBuilding()
 
 
 func _on_destroy_button_pressed() -> void:
-	if selected_thing is Building :
+	if selected_thing != null and selected_thing is Building :
 		var building : Building = selected_thing
 		building.BuildingDie()
 		selected_thing = null

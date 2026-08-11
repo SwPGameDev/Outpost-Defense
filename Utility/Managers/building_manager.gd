@@ -1,7 +1,6 @@
 extends Node
 
 @export var debug_indicators : bool = true
-var building_parent : Node3D
 
 var in_build_mode : bool = false
 var mouse_pos : Vector3
@@ -12,7 +11,7 @@ var build_pos : Vector3
 var build_node : Node3D
 var rotation_amount : float = 90
 
-var building_indicator_1x1 : PackedScene = preload("res://Buildings/TestBuildingIndicators/1x1Indicator.tscn")
+var building_indicator_1x1 : PackedScene = preload("res://Buildings/-TestBuildingIndicators/1x1Indicator.tscn")
 var build_indicator : Node3D = null
 
 var town_hall_scene : PackedScene = preload("res://Buildings/TownHall/town_hall.tscn")
@@ -106,7 +105,6 @@ func TryPlaceFoundation(building_scene : PackedScene, position : Vector3) :
 	add_child(new_building)
 	new_building.global_position = position
 	new_building.rotation = build_node.rotation
-	new_building.reparent(building_parent)
 
 func TrackBuildingRequest(building : Building, cost : ResourceCost) :
 	BuildingRequests[building] = cost

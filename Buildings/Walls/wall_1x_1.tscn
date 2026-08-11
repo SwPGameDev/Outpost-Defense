@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bcmcn42pq1mne"]
 
 [ext_resource type="Script" uid="uid://s7kslfw22s54" path="res://Buildings/Walls/wall_behavior.gd" id="1_f8a1y"]
-[ext_resource type="Resource" uid="uid://co0lomjbya3v2" path="res://Buildings/Costs/Wall_1x1_Cost.tres" id="2_52a5p"]
+[ext_resource type="Resource" uid="uid://co0lomjbya3v2" path="res://Buildings/--Costs/Wall_1x1_Cost.tres" id="2_52a5p"]
 [ext_resource type="Material" uid="uid://mw1v010iwte" path="res://Art/Materials/Buildings/StorageMat.tres" id="2_pguou"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_pguou"]
@@ -16,9 +16,15 @@ height = 0.2
 [sub_resource type="CylinderMesh" id="CylinderMesh_2kccs"]
 height = 0.2
 
-[node name="Wall1x1" type="StaticBody3D" unique_id=788096829 groups=["Wall"]]
+[node name="Wall1x1" type="StaticBody3D" unique_id=788096829 node_paths=PackedStringArray("foundation_collider", "foundation_mesh", "building_collider", "building_mesh", "chunk_in_out") groups=["Wall"]]
 script = ExtResource("1_f8a1y")
 resource_cost = ExtResource("2_52a5p")
+max_hp = 20.0
+foundation_collider = NodePath("FoundationCol")
+foundation_mesh = NodePath("FoundationMesh")
+building_collider = NodePath("Collider")
+building_mesh = NodePath("Mesh")
+chunk_in_out = NodePath("chunk")
 metadata/_custom_type_script = "uid://s7kslfw22s54"
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=1732502436]
@@ -42,3 +48,6 @@ shape = SubResource("CylinderShape3D_oayoh")
 [node name="FoundationMesh" type="MeshInstance3D" parent="." unique_id=785197284]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 mesh = SubResource("CylinderMesh_2kccs")
+
+[node name="chunk" type="Node3D" parent="." unique_id=1926332199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

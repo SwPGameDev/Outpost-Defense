@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqvpdnwvsr6fo"]
 
 [ext_resource type="Script" uid="uid://uq2gqqdmvykw" path="res://REFACTORING/building.gd" id="1_y2x7h"]
-[ext_resource type="Resource" uid="uid://dqhjjlynsatby" path="res://Buildings/Costs/TestBuildingCost.tres" id="2_jvcg6"]
+[ext_resource type="Resource" uid="uid://dqhjjlynsatby" path="res://Buildings/--Costs/TestBuildingCost.tres" id="2_jvcg6"]
 
 [node name="TestBuilding" type="StaticBody3D" unique_id=42643449]
 script = ExtResource("1_y2x7h")
